@@ -1,96 +1,84 @@
 package de.telran.onlineshop.controller;
 
 import de.telran.onlineshop.model.Product;
-import jakarta.annotation.PostConstruct;
-import jakarta.annotation.PreDestroy;
+import de.telran.onlineshop.model.User;
+import de.telran.onlineshop.service.ProductsService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.math.BigDecimal;
-import java.sql.Timestamp;
 import java.util.*;
 
 @RestController
 @RequestMapping(value = "/products")
 public class ProductsController {
 
-    private List<Product> productList;
+    //@Autowired - иньекция через value (не рекомендуемая из-за Reflection)
+    private ProductsService productsService;
 
-    @PostConstruct
-    void init() {
-        Date currentDate = new Date();
-        Timestamp timestamp = new Timestamp(currentDate.getTime());
-
-        productList = new ArrayList<>();
-        productList.add(new Product(1, "Телефон", "Мобильный телефон Samsumg-A5", new BigDecimal("120.20"), 3, "https://m.media-amazon.com/images/I/71mjEVa4BjL._AC_SY879_.jpg", new BigDecimal("110.10"), timestamp, timestamp));
-        productList.add(new Product(2, "Конструктор", "Конструктор Lego McLaren P1", new BigDecimal("449.99"), 4, "https://www.lego.com/cdn/cs/set/assets/blt519dac201a3dd4c1/42172.png?format=webply&fit=bounds&quality=70&width=800&height=800&dpr=1.5", new BigDecimal("350.55"), timestamp, timestamp));
-
-        // System.out.println("Выполняем логику при создании объекта " + this.getClass().getName());
+    //@Autowired - инъекция через конструктор (рекомендуемая !!!), авто аннотирование с версии 3.0
+    public ProductsController(ProductsService productsService) {
+        this.productsService = productsService;
     }
 
-    //GET прочитать
+    // @Autowired - иньекция через сеттер (обязательно использовать аннотацию)
+    public void setProductsService(ProductsService productsService) {
+        this.productsService = productsService;
+    }
+
+    //@GetMapping
+    //    public List<Product> getAllProducts() {
+    //        return productsService.getAllProducts();
+    //    }
     @GetMapping
-    //select
-    List<Product> getAllProducts() {
-        return productList;
+    public ResponseEntity<List<Product>> getAllProducts() {
+        List<Product> products = productsService.getAllProducts();
+        return new ResponseEntity<>(products, HttpStatus.valueOf(200));
     }
 
+    //    @GetMapping(value = "/find/{id}")
+    //    public Product getProductById(@PathVariable Long id) { ///categories/find/3
+    //        return productsService.getProductById(id);
+    //    }
     @GetMapping(value = "/find/{id}")
-    Product getProductById(@PathVariable int id) {
-        return productList.stream()
-                .filter(product -> product.getProductID() == id)
-                .findFirst()
-                .orElse(null);
+    public ResponseEntity<Product> getProductById(@PathVariable Long id) { ///categories/find/3
+        Product product = productsService.getProductById(id);
+        return ResponseEntity.status(200).body(product);
     }
 
     @GetMapping(value = "/get")
-    Product geProductByName(@RequestParam String name) { //user/get?name=Other,k=2
-        return productList.stream()
-                .filter(product -> product.getName().equals(name))
-                .findFirst()
-                .orElse(null);
+    public ResponseEntity<Product> getProductByName(@RequestParam String name) { //user/get?name=Other,k=2
+        Product product = productsService.getProductByName(name);
+        return ResponseEntity.status(200).body(product);
     }
 
     //POST вставить
+//    @PostMapping //Jackson
+//    public boolean createProducts(@RequestBody Product newProduct) { //insert
+//        return productsService.createProducts(newProduct);
+//    }
     @PostMapping //Jackson
-    public boolean createProducts(@RequestBody Product newProduct) { //insert
-        return productList.add(newProduct);
+    public ResponseEntity<Boolean> createProducts(@RequestBody Product newProduct) { //insert
+        boolean product = productsService.createProducts(newProduct);
+        return ResponseEntity.status(HttpStatus.CREATED).body(product);
     }
 
     //PUT изменить
     @PutMapping //Jackson
-    public Product updateProducts(@RequestBody Product updProduct) { // update
-        Product result = productList.stream()
-                .filter(product -> product.getProductID() == updProduct.getProductID())
-                .findFirst()
-                .orElse(null);
-        if (result != null) {
-            result.setName(updProduct.getName());
-            result.setCategoryID(updProduct.getCategoryID());
-            result.setDescription(updProduct.getDescription());
-            result.setPrice(updProduct.getPrice());
-            result.setDiscountPrice(updProduct.getDiscountPrice());
-            result.setImageURL(updProduct.getImageURL());
-            result.setCreatedAt(updProduct.getCreatedAt());
-            result.setUpdatedAt(updProduct.getUpdatedAt());
-        }
-        return result;
+    public ResponseEntity<Product> updateProducts(@RequestBody Product updProduct) { // update
+        Product product = productsService.updateProducts(updProduct);
+        return ResponseEntity.status(HttpStatus.ACCEPTED).body(product);
     }
 
     //DELETE удалить
+//    @DeleteMapping(value = "/{id}") //delete
+//    public void deleteProducts(@PathVariable int id) {
+//        productsService.deleteProducts(id);
+//    }
     @DeleteMapping(value = "/{id}") //delete
-    public void deleteProducts(@PathVariable int id) {
-        Iterator<Product> it = productList.iterator();
-        while (it.hasNext()) {
-            Product current = it.next();
-            if (current.getProductID() == id) {
-                it.remove();
-            }
-        }
+    public ResponseEntity<Void> deleteProducts(@PathVariable int id) {
+        productsService.deleteProducts(id);
+        return ResponseEntity.noContent().build();
     }
 
-    @PreDestroy
-    void destroy() {
-        productList.clear();
-        System.out.println("Выполняем логику при окончании работы с объектом" + this.getClass().getName());
-    }
 }

@@ -2,12 +2,11 @@ package de.telran.onlineshop.model;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
-import java.text.DecimalFormat;
 import java.util.Objects;
 
 //2) Products - товары
 public class Product {
-    private int productID;
+    private Long productID;
     private String name;
     private String description;
     private BigDecimal price;
@@ -20,7 +19,7 @@ public class Product {
     public Product() {
     }
 
-    public Product(int productID, String name, String description, BigDecimal price, long categoryID, String imageURL, BigDecimal discountPrice, Timestamp createdAt, Timestamp updatedAt) {
+    public Product(Long productID, String name, String description, BigDecimal price, long categoryID, String imageURL, BigDecimal discountPrice, Timestamp createdAt, Timestamp updatedAt) {
         this.productID = productID;
         this.name = name;
         this.description = description;
@@ -32,12 +31,11 @@ public class Product {
         this.updatedAt = updatedAt;
     }
 
-
-    public int getProductID() {
+    public Long getProductID() {
         return productID;
     }
 
-    public void setProductID(int productID) {
+    public void setProductID(Long productID) {
         this.productID = productID;
     }
 

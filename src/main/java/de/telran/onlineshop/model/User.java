@@ -6,7 +6,7 @@ import java.util.Objects;
 
 //1) Users - пользователи
 public class User {
-    private int userID;
+    private Long userID;
     private String name;
     private String email;
     private String phoneNumber;
@@ -16,20 +16,20 @@ public class User {
     public User() {
     }
 
-    public User(int userID, String name, String email, String phoneNumbmer, String passwordHash, Role role) {
+    public User(Long userID, String name, String email, String phoneNumber, String passwordHash, Role role) {
         this.userID = userID;
         this.name = name;
         this.email = email;
-        this.phoneNumber = phoneNumbmer;
+        this.phoneNumber = phoneNumber;
         this.passwordHash = passwordHash;
         this.role = role;
     }
 
-    public int getUserID() {
+    public Long  getUserID() {
         return userID;
     }
 
-    public void setUserID(int userID) {
+    public void setUserID(Long  userID) {
         this.userID = userID;
     }
 
