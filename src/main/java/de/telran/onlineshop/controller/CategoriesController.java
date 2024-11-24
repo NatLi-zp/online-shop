@@ -1,5 +1,6 @@
 package de.telran.onlineshop.controller;
 
+import de.telran.onlineshop.entity.CategoriesEntity;
 import de.telran.onlineshop.model.Category;
 import de.telran.onlineshop.service.CategoriesService;
 import org.springframework.http.HttpStatus;
@@ -12,6 +13,7 @@ import java.util.List;
 @RestController
 @RequestMapping(value = "/categories")
 public class CategoriesController {
+
     //@Autowired - иньекция через value (не рекомендуемая из-за Reflection)
     private CategoriesService categoryService;
 

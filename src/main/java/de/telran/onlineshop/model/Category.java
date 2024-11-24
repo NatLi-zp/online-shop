@@ -1,6 +1,6 @@
 package de.telran.onlineshop.model;
 
-//Cart - корзина
+//Category - категории товаров
 import java.util.Objects;
 
 public class Category {

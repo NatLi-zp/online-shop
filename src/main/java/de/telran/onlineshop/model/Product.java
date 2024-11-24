@@ -9,17 +9,18 @@ public class Product {
     private Long productID;
     private String name;
     private String description;
-    private BigDecimal price;
-    private long categoryID;
+    private Double price; //BigDecimal
+    //private Category category;
+    private Long categoryID;
     private String imageURL;
-    private BigDecimal discountPrice;
+    private Double discountPrice; //BigDecimal
     private Timestamp createdAt;
     private Timestamp updatedAt;
 
     public Product() {
     }
 
-    public Product(Long productID, String name, String description, BigDecimal price, long categoryID, String imageURL, BigDecimal discountPrice, Timestamp createdAt, Timestamp updatedAt) {
+    public Product(Long productID, String name, String description, Double price, Long categoryID, String imageURL, Double discountPrice, Timestamp createdAt, Timestamp updatedAt) {
         this.productID = productID;
         this.name = name;
         this.description = description;
@@ -55,19 +56,19 @@ public class Product {
         this.description = description;
     }
 
-    public BigDecimal getPrice() {
+    public Double getPrice() {
         return price;
     }
 
-    public void setPrice(BigDecimal price) {
+    public void setPrice(Double price) {
         this.price = price;
     }
 
-    public long getCategoryID() {
+    public Long getCategoryID() {
         return categoryID;
     }
 
-    public void setCategoryID(long categoryID) {
+    public void setCategoryID(Long categoryID) {
         this.categoryID = categoryID;
     }
 
@@ -79,11 +80,11 @@ public class Product {
         this.imageURL = imageURL;
     }
 
-    public BigDecimal getDiscountPrice() {
+    public Double getDiscountPrice() {
         return discountPrice;
     }
 
-    public void setDiscountPrice(BigDecimal discountPrice) {
+    public void setDiscountPrice(Double discountPrice) {
         this.discountPrice = discountPrice;
     }
 
@@ -107,8 +108,8 @@ public class Product {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Product products = (Product) o;
-        return productID == products.productID && categoryID == products.categoryID && Objects.equals(name, products.name) && Objects.equals(description, products.description) && Objects.equals(price, products.price) && Objects.equals(imageURL, products.imageURL) && Objects.equals(discountPrice, products.discountPrice) && Objects.equals(createdAt, products.createdAt) && Objects.equals(updatedAt, products.updatedAt);
+        Product product = (Product) o;
+        return Objects.equals(productID, product.productID) && Objects.equals(name, product.name) && Objects.equals(description, product.description) && Objects.equals(price, product.price) && Objects.equals(categoryID, product.categoryID) && Objects.equals(imageURL, product.imageURL) && Objects.equals(discountPrice, product.discountPrice) && Objects.equals(createdAt, product.createdAt) && Objects.equals(updatedAt, product.updatedAt);
     }
 
     @Override
@@ -118,7 +119,7 @@ public class Product {
 
     @Override
     public String toString() {
-        return "Products{" +
+        return "Product{" +
                 "productID=" + productID +
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +

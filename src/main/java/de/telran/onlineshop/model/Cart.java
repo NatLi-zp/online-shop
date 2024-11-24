@@ -2,32 +2,33 @@ package de.telran.onlineshop.model;
 
 import java.util.Objects;
 
+//Cart - корзина
 public class Cart {
-    private int categoryID;
-    private int userID;
+    private Long cartID;
+    private User user;
 
     public Cart() {
     }
 
-    public Cart(int categoryID, int userID) {
-        this.categoryID = categoryID;
-        this.userID = userID;
+    public Cart(Long cartID, User user) {
+        this.cartID = cartID;
+        this.user = user;
     }
 
-    public int getCategoryID() {
-        return categoryID;
+    public Long getCartID() {
+        return cartID;
     }
 
-    public void setCategoryID(int categoryID) {
-        this.categoryID = categoryID;
+    public void setCartID(Long cartID) {
+        this.cartID = cartID;
     }
 
-    public int getUserID() {
-        return userID;
+    public User getUser() {
+        return user;
     }
 
-    public void setUserID(int userID) {
-        this.userID = userID;
+    public void setUser(User user) {
+        this.user = user;
     }
 
     @Override
@@ -35,19 +36,18 @@ public class Cart {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Cart cart = (Cart) o;
-        return categoryID == cart.categoryID && userID == cart.userID;
+        return Objects.equals(cartID, cart.cartID);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(categoryID, userID);
+        return Objects.hashCode(cartID);
     }
 
     @Override
     public String toString() {
         return "Cart{" +
-                "categoryID=" + categoryID +
-                ", userID=" + userID +
+                "cartID=" + cartID +
                 '}';
     }
 }
