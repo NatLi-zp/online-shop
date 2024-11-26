@@ -1,11 +1,10 @@
 package de.telran.onlineshop.service;
 
 import de.telran.onlineshop.Role;
+import de.telran.onlineshop.dto.CategoryDto;
 import de.telran.onlineshop.entity.CategoriesEntity;
 import de.telran.onlineshop.entity.UsersEntity;
-import de.telran.onlineshop.model.Category;
-import de.telran.onlineshop.model.User;
-import de.telran.onlineshop.repository.CategoriesRepository;
+import de.telran.onlineshop.dto.UserDto;
 import de.telran.onlineshop.repository.UsersRepository;
 import jakarta.annotation.PostConstruct;
 import jakarta.annotation.PreDestroy;
@@ -15,7 +14,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
@@ -27,7 +25,7 @@ public class UsersService {
 
     private final UsersRepository usersRepository;
 
-    private List<User> userList;
+    private List<UserDto> userList;
 
 
     @PostConstruct
@@ -47,61 +45,91 @@ public class UsersService {
         System.out.println("Выполняем логику при создании объекта " + this.getClass().getName());
     }
 
-    public List<User> getAllUsers() {
+    public List<UserDto> getAllUsers() {
 
         //return userList;
         List<UsersEntity> usersEntities = usersRepository.findAll();
         return usersEntities.stream()
-                .map(entity -> new User(entity.getUserId(), entity.getName(), entity.getEmail(), entity.getPhoneNumber(), entity.getPasswordHash(), entity.getRole()))
+                .map(entity -> new UserDto(entity.getUserId(), entity.getName(), entity.getEmail(), entity.getPhoneNumber(), entity.getPasswordHash(), entity.getRole()))
                 .collect(Collectors.toList());
     }
 
-    public User getUserById(Long id) {
-        Optional<UsersEntity> entity = usersRepository.findById(id);
+    public UserDto getUserById(Long id) {
 
-        return new User(entity.get().getUserId(), entity.get().getName(), entity.get().getEmail(), entity.get().getPhoneNumber(), entity.get().getPasswordHash(), entity.get().getRole());
+        UsersEntity usersEntity = usersRepository.findById(id).orElse(new UsersEntity());
+
+        return new UserDto(usersEntity.getUserId(), usersEntity.getName(), usersEntity.getEmail(),
+                usersEntity.getPhoneNumber(), usersEntity.getPasswordHash(), usersEntity.getRole());
 
         //        return userList.stream()
-       //         .filter(user -> user.getUserID() == id)
+        //         .filter(user -> user.getUserID() == id)
 //                .findFirst()
 //                .orElse(null);
     }
 
-    public User getUserByName(@RequestParam String name) { //user/get?name=Other,k=2
+    public UserDto getUserByName(String name) { //user/get?name=Other,k=2
+        UsersEntity usersEntity = usersRepository.findByNameNative(name); // используем native
 
-        return userList.stream()
-                .filter(user -> user.getName().equals(name))
-                .findFirst()
-                .orElse(null);
+        return new UserDto(usersEntity.getUserId(), usersEntity.getName(), usersEntity.getEmail(),
+                usersEntity.getPhoneNumber(), usersEntity.getPasswordHash(), usersEntity.getRole());
+
+//        return userList.stream()
+//                .filter(user -> user.getName().equals(name))
+//                .findFirst()
+//                .orElse(null);
     }
 
     //POST вставить
-    public boolean createUsers(@RequestBody User newUser) { //insert
-        return userList.add(newUser);
+    public boolean createUsers(UserDto newUser) { //insert
+        UsersEntity createUserEntity = new UsersEntity(null, newUser.getName(), newUser.getEmail(),
+                newUser.getPhoneNumbmer(), newUser.getPasswordHash(), newUser.getRole());
+
+        UsersEntity returnUser = usersRepository.save(createUserEntity);
+        return createUserEntity.getUserId() != null;
+        //return userList.add(newUser);
     }
 
-    public User updateUser(User user) {
-        User result = userList.stream()
-                .filter(u -> u.getUserID() == user.getUserID())
-                .findFirst()
-                .orElse(null);
-        if (result != null) {
-            result.setName(user.getName());
-            result.setEmail(user.getEmail());
-            result.setPhoneNumbmer(user.getPhoneNumbmer());
-        }
-        return result;
+    public UserDto updateUser(UserDto updUser) {
+
+        UsersEntity createUserEntity = new UsersEntity(updUser.getUserID(), updUser.getName(), updUser.getEmail(),
+                updUser.getPhoneNumbmer(), updUser.getPasswordHash(), updUser.getRole());
+        UsersEntity returnUser = usersRepository.save(createUserEntity);
+
+        // трансформируем данные из Entity в Dto и возвращаем пользователю
+        return new UserDto(returnUser.getUserId(), returnUser.getName(), returnUser.getEmail(),
+                returnUser.getPhoneNumber(), returnUser.getPasswordHash(), returnUser.getRole());
+
+//        UserDto result = userList.stream()
+//                .filter(u -> u.getUserID() == user.getUserID())
+//                .findFirst()
+//                .orElse(null);
+//        if (result != null) {
+//            result.setName(user.getName());
+//            result.setEmail(user.getEmail());
+//            result.setPhoneNumbmer(user.getPhoneNumbmer());
+//        }
+//        return result;
     }
 
     //DELETE удалить
-    public void deleteUser(@PathVariable int id) {
-        Iterator<User> it = userList.iterator();
-        while (it.hasNext()) {
-            User current = it.next();
-            if (current.getUserID() == id) {
-                it.remove();
-            }
+    public void deleteUser(Long id) {
+        // usersRepository.deleteById(id); // 1й вариант реализации метода delete, менее информативно
+
+        // 2й вариант реализации метода delete c предварит. поиском
+        UsersEntity users = usersRepository.findById(id).orElse(null);
+        if (users == null) {
+            throw new RuntimeException("Нет такого объекта с Id: " + id);
+        } else {
+            usersRepository.delete(users);
         }
+
+//        Iterator<UserDto> it = userList.iterator();
+//        while (it.hasNext()) {
+//            UserDto current = it.next();
+//            if (current.getUserID() == id) {
+//                it.remove();
+//            }
+//        }
     }
 
     @PreDestroy

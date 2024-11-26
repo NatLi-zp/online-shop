@@ -1,16 +1,16 @@
-package de.telran.onlineshop.model;
+package de.telran.onlineshop.dto;
 
 import java.util.Objects;
 
 //Cart - корзина
 public class Cart {
     private Long cartID;
-    private User user;
+    private UserDto user;
 
     public Cart() {
     }
 
-    public Cart(Long cartID, User user) {
+    public Cart(Long cartID, UserDto user) {
         this.cartID = cartID;
         this.user = user;
     }
@@ -23,11 +23,11 @@ public class Cart {
         this.cartID = cartID;
     }
 
-    public User getUser() {
+    public UserDto getUser() {
         return user;
     }
 
-    public void setUser(User user) {
+    public void setUser(UserDto user) {
         this.user = user;
     }
 

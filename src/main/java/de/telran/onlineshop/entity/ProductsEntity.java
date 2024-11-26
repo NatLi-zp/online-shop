@@ -1,6 +1,5 @@
 package de.telran.onlineshop.entity;
 
-import de.telran.onlineshop.model.Category;
 import jakarta.persistence.*;
 import lombok.*;
 

@@ -1,7 +1,6 @@
 package de.telran.onlineshop.controller;
 
-import de.telran.onlineshop.model.Product;
-import de.telran.onlineshop.model.User;
+import de.telran.onlineshop.dto.UserDto;
 import de.telran.onlineshop.service.UsersService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,37 +17,37 @@ public class UsersController {
     private UsersService usersService;
 
     @GetMapping  //select
-    public ResponseEntity<List<User>> getAllUsers() {
-        List<User> users = usersService.getAllUsers();
+    public ResponseEntity<List<UserDto>> getAllUsers() {
+        List<UserDto> users = usersService.getAllUsers();
         return new ResponseEntity<>(users, HttpStatus.valueOf(200));
     }
 
-    @GetMapping(value = "/{id}")
-    public ResponseEntity<User> getUserById(@PathVariable Long id) {
-        User user = usersService.getUserById(id);
+    @GetMapping(value = "/find/{id}")
+    public ResponseEntity<UserDto> getUserById(@PathVariable Long id) {
+        UserDto user = usersService.getUserById(id);
         return ResponseEntity.status(222).body(user);
     }
 
     @GetMapping(value = "/get")
-    public ResponseEntity<User> getUserByName(@RequestParam String name) { //user/get?name=Other,k=2
-        User user = usersService.getUserByName(name);
+    public ResponseEntity<UserDto> getUserByName(@RequestParam String name) { //user/get?name=Other,k=2
+        UserDto user = usersService.getUserByName(name);
         return ResponseEntity.status(200).body(user);
     }
 
     @PostMapping //Jackson
-    public ResponseEntity<Boolean> createUsers(@RequestBody User newUser) { //insert
+    public ResponseEntity<Boolean> createUsers(@RequestBody UserDto newUser) { //insert
         boolean user = usersService.createUsers(newUser);
         return ResponseEntity.status(HttpStatus.CREATED).body(user);
     }
 
     @PutMapping
-    public ResponseEntity<User> updateClient(@RequestBody User user) {
-        User userResponse = usersService.updateUser(user);
+    public ResponseEntity<UserDto> updateClient(@RequestBody UserDto user) {
+        UserDto userResponse = usersService.updateUser(user);
         return ResponseEntity.status(HttpStatus.CREATED).body(userResponse);
     }
 
     @DeleteMapping(value = "/{id}") //delete
-    public ResponseEntity<Void> deleteUsers(@PathVariable int id) {
+    public ResponseEntity<Void> deleteUsers(@PathVariable Long id) {
         usersService.deleteUser(id);
         return ResponseEntity.noContent().build();
     }

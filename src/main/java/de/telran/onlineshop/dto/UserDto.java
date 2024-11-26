@@ -1,11 +1,11 @@
-package de.telran.onlineshop.model;
+package de.telran.onlineshop.dto;
 
 import de.telran.onlineshop.Role;
 
 import java.util.Objects;
 
 //1) Users - пользователи
-public class User {
+public class UserDto {
     private Long userID;
     private String name;
     private String email;
@@ -13,10 +13,10 @@ public class User {
     private String passwordHash;
     private Role role;
 
-    public User() {
+    public UserDto() {
     }
 
-    public User(Long userID, String name, String email, String phoneNumber, String passwordHash, Role role) {
+    public UserDto(Long userID, String name, String email, String phoneNumber, String passwordHash, Role role) {
         this.userID = userID;
         this.name = name;
         this.email = email;
@@ -77,7 +77,7 @@ public class User {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        User users = (User) o;
+        UserDto users = (UserDto) o;
         return userID == users.userID && Objects.equals(name, users.name) && Objects.equals(email, users.email) && Objects.equals(phoneNumber, users.phoneNumber) && Objects.equals(passwordHash, users.passwordHash) && role == users.role;
     }
 

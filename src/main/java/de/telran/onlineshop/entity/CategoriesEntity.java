@@ -15,7 +15,7 @@ public class CategoriesEntity {
 
     @Id
     @Column(name = "CategoryID")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY) // генерится на уровне БД,само
     private Long categoryId;
 
     @Column(name = "Name")

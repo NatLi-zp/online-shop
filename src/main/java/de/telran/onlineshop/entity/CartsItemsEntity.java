@@ -1,12 +1,5 @@
 package de.telran.onlineshop.entity;
 
-import de.telran.onlineshop.model.Cart;
-import de.telran.onlineshop.model.Product;
-import jakarta.persistence.*;
-import lombok.*;
-
-import java.util.Objects;
-
 //4) CartItems - товары в корзине
 
 //@Entity

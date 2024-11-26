@@ -1,4 +1,4 @@
-package de.telran.onlineshop.model;
+package de.telran.onlineshop.dto;
 
 import java.util.Objects;
 
@@ -6,13 +6,13 @@ import java.util.Objects;
 public class CartItems {
     private Long cartItemID;
     private Cart cart;
-    private Product product;
+    private ProductDto product;
     private int quantity;
 
     public CartItems() {
     }
 
-    public CartItems(Long cartItemID, Cart cart, Product product, int quantity) {
+    public CartItems(Long cartItemID, Cart cart, ProductDto product, int quantity) {
         this.cartItemID = cartItemID;
         this.cart = cart;
         this.product = product;
@@ -35,11 +35,11 @@ public class CartItems {
         this.cart = cart;
     }
 
-    public Product getProduct() {
+    public ProductDto getProduct() {
         return product;
     }
 
-    public void setProduct(Product product) {
+    public void setProduct(ProductDto product) {
         this.product = product;
     }
 

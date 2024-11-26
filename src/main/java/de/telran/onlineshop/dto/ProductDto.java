@@ -1,11 +1,10 @@
-package de.telran.onlineshop.model;
+package de.telran.onlineshop.dto;
 
-import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.Objects;
 
 //2) Products - товары
-public class Product {
+public class ProductDto {
     private Long productID;
     private String name;
     private String description;
@@ -17,10 +16,10 @@ public class Product {
     private Timestamp createdAt;
     private Timestamp updatedAt;
 
-    public Product() {
+    public ProductDto() {
     }
 
-    public Product(Long productID, String name, String description, Double price, Long categoryID, String imageURL, Double discountPrice, Timestamp createdAt, Timestamp updatedAt) {
+    public ProductDto(Long productID, String name, String description, Double price, Long categoryID, String imageURL, Double discountPrice, Timestamp createdAt, Timestamp updatedAt) {
         this.productID = productID;
         this.name = name;
         this.description = description;
@@ -108,7 +107,7 @@ public class Product {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Product product = (Product) o;
+        ProductDto product = (ProductDto) o;
         return Objects.equals(productID, product.productID) && Objects.equals(name, product.name) && Objects.equals(description, product.description) && Objects.equals(price, product.price) && Objects.equals(categoryID, product.categoryID) && Objects.equals(imageURL, product.imageURL) && Objects.equals(discountPrice, product.discountPrice) && Objects.equals(createdAt, product.createdAt) && Objects.equals(updatedAt, product.updatedAt);
     }
 

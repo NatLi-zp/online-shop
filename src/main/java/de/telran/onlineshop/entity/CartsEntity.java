@@ -1,9 +1,5 @@
 package de.telran.onlineshop.entity;
 
-import de.telran.onlineshop.model.User;
-import jakarta.persistence.*;
-import lombok.*;
-
 //Cart - корзина
 //@Entity
 //@Table(name = "Carts")

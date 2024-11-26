@@ -1,7 +1,6 @@
 package de.telran.onlineshop.controller;
 
-import de.telran.onlineshop.model.Product;
-import de.telran.onlineshop.model.User;
+import de.telran.onlineshop.dto.ProductDto;
 import de.telran.onlineshop.service.ProductsService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -31,8 +30,8 @@ public class ProductsController {
     //        return productsService.getAllProducts();
     //    }
     @GetMapping
-    public ResponseEntity<List<Product>> getAllProducts() {
-        List<Product> products = productsService.getAllProducts();
+    public ResponseEntity<List<ProductDto>> getAllProducts() {
+        List<ProductDto> products = productsService.getAllProducts();
         return new ResponseEntity<>(products, HttpStatus.valueOf(200));
     }
 
@@ -41,14 +40,14 @@ public class ProductsController {
     //        return productsService.getProductById(id);
     //    }
     @GetMapping(value = "/find/{id}")
-    public ResponseEntity<Product> getProductById(@PathVariable Long id) { ///categories/find/3
-        Product product = productsService.getProductById(id);
+    public ResponseEntity<ProductDto> getProductById(@PathVariable Long id) { ///categories/find/3
+        ProductDto product = productsService.getProductById(id);
         return ResponseEntity.status(200).body(product);
     }
 
     @GetMapping(value = "/get")
-    public ResponseEntity<Product> getProductByName(@RequestParam String name) { //user/get?name=Other,k=2
-        Product product = productsService.getProductByName(name);
+    public ResponseEntity<ProductDto> getProductByName(@RequestParam String name) { //user/get?name=Other,k=2
+        ProductDto product = productsService.getProductByName(name);
         return ResponseEntity.status(200).body(product);
     }
 
@@ -58,15 +57,15 @@ public class ProductsController {
 //        return productsService.createProducts(newProduct);
 //    }
     @PostMapping //Jackson
-    public ResponseEntity<Boolean> createProducts(@RequestBody Product newProduct) { //insert
+    public ResponseEntity<Boolean> createProducts(@RequestBody ProductDto newProduct) { //insert
         boolean product = productsService.createProducts(newProduct);
         return ResponseEntity.status(HttpStatus.CREATED).body(product);
     }
 
     //PUT изменить
     @PutMapping //Jackson
-    public ResponseEntity<Product> updateProducts(@RequestBody Product updProduct) { // update
-        Product product = productsService.updateProducts(updProduct);
+    public ResponseEntity<ProductDto> updateProducts(@RequestBody ProductDto updProduct) { // update
+        ProductDto product = productsService.updateProducts(updProduct);
         return ResponseEntity.status(HttpStatus.ACCEPTED).body(product);
     }
 
@@ -76,7 +75,7 @@ public class ProductsController {
 //        productsService.deleteProducts(id);
 //    }
     @DeleteMapping(value = "/{id}") //delete
-    public ResponseEntity<Void> deleteProducts(@PathVariable int id) {
+    public ResponseEntity<Void> deleteProducts(@PathVariable Long id) {
         productsService.deleteProducts(id);
         return ResponseEntity.noContent().build();
     }
