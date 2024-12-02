@@ -10,7 +10,7 @@ public class ProductDto {
     private String description;
     private Double price; //BigDecimal
     //private Category category;
-    private Long categoryID;
+    //private Long categoryID;
     private String imageURL;
     private Double discountPrice; //BigDecimal
     private Timestamp createdAt;
@@ -19,12 +19,14 @@ public class ProductDto {
     public ProductDto() {
     }
 
-    public ProductDto(Long productID, String name, String description, Double price, Long categoryID, String imageURL, Double discountPrice, Timestamp createdAt, Timestamp updatedAt) {
-        this.productID = productID;
+   // public ProductDto(Long productID, String name, String description, Double price, Long categoryID, String imageURL, Double discountPrice, Timestamp createdAt, Timestamp updatedAt) {
+   public ProductDto(Long productID, String name, String description, Double price, String imageURL, Double discountPrice, Timestamp createdAt, Timestamp updatedAt) {
+
+       this.productID = productID;
         this.name = name;
         this.description = description;
         this.price = price;
-        this.categoryID = categoryID;
+        //this.categoryID = categoryID;
         this.imageURL = imageURL;
         this.discountPrice = discountPrice;
         this.createdAt = createdAt;
@@ -63,13 +65,13 @@ public class ProductDto {
         this.price = price;
     }
 
-    public Long getCategoryID() {
-        return categoryID;
-    }
+   // public Long getCategoryID() {
+//        return categoryID;
+//    }
 
-    public void setCategoryID(Long categoryID) {
-        this.categoryID = categoryID;
-    }
+    //public void setCategoryID(Long categoryID) {
+   //     this.categoryID = categoryID;
+    //}
 
     public String getImageURL() {
         return imageURL;
@@ -107,13 +109,13 @@ public class ProductDto {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        ProductDto product = (ProductDto) o;
-        return Objects.equals(productID, product.productID) && Objects.equals(name, product.name) && Objects.equals(description, product.description) && Objects.equals(price, product.price) && Objects.equals(categoryID, product.categoryID) && Objects.equals(imageURL, product.imageURL) && Objects.equals(discountPrice, product.discountPrice) && Objects.equals(createdAt, product.createdAt) && Objects.equals(updatedAt, product.updatedAt);
+        ProductDto that = (ProductDto) o;
+        return Objects.equals(productID, that.productID) && Objects.equals(name, that.name) && Objects.equals(description, that.description) && Objects.equals(price, that.price) && Objects.equals(imageURL, that.imageURL) && Objects.equals(discountPrice, that.discountPrice) && Objects.equals(createdAt, that.createdAt) && Objects.equals(updatedAt, that.updatedAt);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(productID, name, description, price, categoryID, imageURL, discountPrice, createdAt, updatedAt);
+        return Objects.hash(productID, name, description, price, imageURL, discountPrice, createdAt, updatedAt);
     }
 
     @Override
@@ -123,7 +125,7 @@ public class ProductDto {
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
                 ", price=" + price +
-                ", categoryID=" + categoryID +
+              //  ", categoryID=" + categoryID +
                 ", imageURL='" + imageURL + '\'' +
                 ", discountPrice=" + discountPrice +
                 ", createdAt=" + createdAt +

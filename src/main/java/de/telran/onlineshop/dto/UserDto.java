@@ -1,6 +1,6 @@
 package de.telran.onlineshop.dto;
 
-import de.telran.onlineshop.Role;
+import de.telran.onlineshop.entity.enums.Role;
 
 import java.util.Objects;
 

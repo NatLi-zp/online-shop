@@ -1,8 +1,6 @@
 package de.telran.onlineshop.service;
 
-import de.telran.onlineshop.Role;
-import de.telran.onlineshop.dto.CategoryDto;
-import de.telran.onlineshop.entity.CategoriesEntity;
+import de.telran.onlineshop.entity.enums.Role;
 import de.telran.onlineshop.entity.UsersEntity;
 import de.telran.onlineshop.dto.UserDto;
 import de.telran.onlineshop.repository.UsersRepository;
@@ -10,13 +8,8 @@ import jakarta.annotation.PostConstruct;
 import jakarta.annotation.PreDestroy;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
 
-import java.util.Iterator;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
