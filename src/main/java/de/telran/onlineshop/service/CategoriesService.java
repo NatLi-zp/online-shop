@@ -3,15 +3,13 @@ package de.telran.onlineshop.service;
 import de.telran.onlineshop.entity.CategoriesEntity;
 import de.telran.onlineshop.dto.CategoryDto;
 import de.telran.onlineshop.repository.CategoriesRepository;
+import de.telran.onlineshop.repository.ProductsRepository;
 import jakarta.annotation.PostConstruct;
 import jakarta.annotation.PreDestroy;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -21,6 +19,7 @@ import java.util.stream.Collectors;
 public class CategoriesService {
 
     private final CategoriesRepository categoriesRepository;
+    private final ProductsRepository productsRepository;
 
     @Autowired
     private Random random1; // уточнение имени бина при ситуации, когда в контейнере есть неск. бинов типа Random
@@ -50,9 +49,9 @@ public class CategoriesService {
         category6 = categoriesRepository.save(category6);
 
         //случайно меняем какую-то категорию
-        Long idUpdate = random1.nextLong(5) + 1;
-        CategoriesEntity updateCategory = new CategoriesEntity(idUpdate, "Другие");
-        categoriesRepository.save(updateCategory);
+//        Long idUpdate = random1.nextLong(5) + 1;
+//        CategoriesEntity updateCategory = new CategoriesEntity(idUpdate, "Другие");
+//        categoriesRepository.save(updateCategory);
 //
 //        category6.setName("Другие");
 //        categoriesRepository.save(category6);
@@ -139,7 +138,7 @@ public class CategoriesService {
 
     @PreDestroy
     void destroy() {
-        categoryList.clear();
+       // categoryList.clear();
         System.out.println("Выполняем логику при окончании работы с  объектом " + this.getClass().getName());
     }
 }

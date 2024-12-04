@@ -16,9 +16,12 @@ import lombok.*;
 public class CartItemsEntity {
 
     @Id
-    @Column(name = "CartItemsID")
+    @Column(name = "CartItemID")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long cartItemId;
+
+    @Column(name = "Quantity")
+    private int quantity;
 
     @ManyToOne
     @JoinColumn(name = "CartID")
@@ -28,7 +31,6 @@ public class CartItemsEntity {
     @JoinColumn(name = "ProductID")
     private ProductsEntity product;
 
-    @Column(name = "Quantity")
-    private int quantity;
+
 
 }

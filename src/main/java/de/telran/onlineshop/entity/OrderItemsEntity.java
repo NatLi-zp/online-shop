@@ -6,10 +6,6 @@ import de.telran.onlineshop.entity.enums.Status;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.sql.Timestamp;
-import java.util.HashSet;
-import java.util.Set;
-
 @Entity
 @Table(name = "OrderItems")
 @AllArgsConstructor

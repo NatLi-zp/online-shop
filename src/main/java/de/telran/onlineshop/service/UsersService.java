@@ -1,8 +1,10 @@
 package de.telran.onlineshop.service;
 
+import de.telran.onlineshop.entity.CartEntity;
 import de.telran.onlineshop.entity.enums.Role;
 import de.telran.onlineshop.entity.UsersEntity;
 import de.telran.onlineshop.dto.UserDto;
+import de.telran.onlineshop.repository.CartRepository;
 import de.telran.onlineshop.repository.UsersRepository;
 import jakarta.annotation.PostConstruct;
 import jakarta.annotation.PreDestroy;
@@ -17,6 +19,7 @@ import java.util.stream.Collectors;
 public class UsersService {
 
     private final UsersRepository usersRepository;
+    private final CartRepository cartRepository;
 
     private List<UserDto> userList;
 
@@ -28,11 +31,20 @@ public class UsersService {
 //        userList.add(new User(2L, "Вася Васечкин", "vasiliy@gmail.com", "+4912312777", "222", Role.CLIENT));
 //        userList.add(new User(3L, "Гусь", "gus@gmail.com", "+491231255555", "777", Role.ADMINISTRATOR));
 
-        UsersEntity user1 = new UsersEntity(1L, "Петя Петров", "petrov@gmail.com", "+49123123123", "111", Role.CLIENT);
+
+        CartEntity cart1 = new CartEntity();
+        cart1 = cartRepository.save(cart1);
+        UsersEntity user1 = new UsersEntity(null, "Петя Петров", "petrov@gmail.com", "+49123123123", "111", Role.CLIENT, cart1, null, null, null);
         usersRepository.save(user1);
-        UsersEntity user2 = new UsersEntity(2L, "Вася Васечкин", "vasiliy@gmail.com", "+4912312777", "222", Role.CLIENT);
+
+        CartEntity cart2 = new CartEntity();
+        cart2 = cartRepository.save(cart2);
+        UsersEntity user2 = new UsersEntity(null, "Вася Васечкин", "vasiliy@gmail.com", "+4912312777", "222", Role.CLIENT, cart2, null, null, null);
         usersRepository.save(user2);
-        UsersEntity user3 = new UsersEntity(3L, "Гусь", "gus@gmail.com", "+491231255555", "777", Role.ADMINISTRATOR);
+
+        CartEntity cart3 = new CartEntity();
+        cart3 = cartRepository.save(cart3);
+        UsersEntity user3 = new UsersEntity(null, "Гусь", "gus@gmail.com", "+491231255555", "777", Role.ADMINISTRATOR, cart3, null, null, null);
         usersRepository.save(user3);
 
         System.out.println("Выполняем логику при создании объекта " + this.getClass().getName());
@@ -75,7 +87,7 @@ public class UsersService {
     //POST вставить
     public boolean createUsers(UserDto newUser) { //insert
         UsersEntity createUserEntity = new UsersEntity(null, newUser.getName(), newUser.getEmail(),
-                newUser.getPhoneNumbmer(), newUser.getPasswordHash(), newUser.getRole());
+                newUser.getPhoneNumbmer(), newUser.getPasswordHash(), newUser.getRole(), null, null, null, null);
 
         UsersEntity returnUser = usersRepository.save(createUserEntity);
         return createUserEntity.getUserId() != null;
@@ -85,7 +97,7 @@ public class UsersService {
     public UserDto updateUser(UserDto updUser) {
 
         UsersEntity createUserEntity = new UsersEntity(updUser.getUserID(), updUser.getName(), updUser.getEmail(),
-                updUser.getPhoneNumbmer(), updUser.getPasswordHash(), updUser.getRole());
+                updUser.getPhoneNumbmer(), updUser.getPasswordHash(), updUser.getRole(),null, null, null,null);
         UsersEntity returnUser = usersRepository.save(createUserEntity);
 
         // трансформируем данные из Entity в Dto и возвращаем пользователю
@@ -127,7 +139,7 @@ public class UsersService {
 
     @PreDestroy
     void destroy() {
-        userList.clear();
+     //   userList.clear();
         System.out.println("Выполняем логику при окончании работы с объектом" + this.getClass().getName());
     }
 }

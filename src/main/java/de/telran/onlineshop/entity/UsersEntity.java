@@ -34,11 +34,19 @@ public class UsersEntity {
     @Column(name = "PasswordHash")
     private String passwordHash;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "Role")
     private Role role;
 
     @OneToOne(mappedBy = "user")
     private CartEntity cart;
+
+    @OneToMany(mappedBy = "user")
+    private Set<FavoritesEntity> favorites = new HashSet<>();
+
+    //my
+    @OneToMany(mappedBy = "user")
+    private Set<OrdersEntity> orders = new HashSet<>();
 
     @ManyToMany
     @JoinTable(name = "UsersAddresses",
@@ -46,14 +54,6 @@ public class UsersEntity {
             inverseJoinColumns = @JoinColumn(name = "AddressID"))
     private Set<AddressEntity> addresses = new HashSet<>();
 
-    public UsersEntity(Long userId, String name, String email, String phoneNumber, String passwordHash, Role role) {
-        this.userId = userId;
-        this.name = name;
-        this.email = email;
-        this.phoneNumber = phoneNumber;
-        this.passwordHash = passwordHash;
-        this.role = role;
-    }
 }
 
 

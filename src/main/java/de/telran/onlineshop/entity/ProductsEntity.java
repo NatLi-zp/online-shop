@@ -48,13 +48,14 @@ public class ProductsEntity {
     @Column(name = "UpdatedAt")
     private Timestamp updatedAt;
 
-    @ManyToOne
+    @ManyToOne//(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(name = "CategoryID") // имя колонки для связи с CategoriesEntity
     private CategoriesEntity category;
 
-    @OneToMany(mappedBy = "product")
-    private Set<FavoritesEntity> favorites;
+    @OneToMany(mappedBy = "product", fetch = FetchType.EAGER)
+    private Set<FavoritesEntity> favorites = new HashSet<>();
 
+    // мое
     @OneToMany(mappedBy = "product")
     private Set<OrderItemsEntity> orderItem = new HashSet<>();
 
@@ -67,16 +68,5 @@ public class ProductsEntity {
 //            inverseJoinColumns = @JoinColumn(name = "CategoryID"))
 //    private Set<CategoriesEntity> categories =  new HashSet<>();
 
-
-    public ProductsEntity(Long productId, String name, String description, Double price, String imageUrl, Double discountPrice, Timestamp createdAt, Timestamp updatedAt) {
-        this.productId = productId;
-        this.name = name;
-        this.description = description;
-        this.price = price;
-        this.imageUrl = imageUrl;
-        this.discountPrice = discountPrice;
-        this.createdAt = createdAt;
-        this.updatedAt = updatedAt;
-    }
 
 }

@@ -24,10 +24,6 @@ public class OrdersEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long orderID;
 
-    @ManyToOne
-    @JoinColumn(name = "UserID")
-    private UsersEntity user;
-
     @Column(name = "CreatedAt")
     private Timestamp createdAt;
 
@@ -48,5 +44,9 @@ public class OrdersEntity {
 
     @OneToMany(mappedBy = "order")
     private Set<OrderItemsEntity> orderItems;
+
+    @ManyToOne
+    @JoinColumn(name = "UserID")
+    private UsersEntity user;
 
 }

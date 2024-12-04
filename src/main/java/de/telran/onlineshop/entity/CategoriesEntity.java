@@ -25,7 +25,7 @@ public class CategoriesEntity {
     @Column(name = "Name")
     private String name;
 
-    @OneToMany(mappedBy = "category")
+    @OneToMany(mappedBy = "category") //, cascade = CascadeType.ALL)
     private Set<ProductsEntity> products = new HashSet<>();
 
     public CategoriesEntity(Long categoryId, String name) {
