@@ -1,21 +1,26 @@
 package de.telran.onlineshop.entity;
 
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.*;
 
 import java.util.HashSet;
 import java.util.Set;
 
 //Cart - корзина
-@Data
 @Entity
 @Table(name = "Cart")
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
+@EqualsAndHashCode
+@ToString
 public class CartEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "CartID")
-    private long cartId;
+    private Long cartId;
 
     @OneToOne
     @JoinColumn(name = "UserID", referencedColumnName = "userId")

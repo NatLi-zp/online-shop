@@ -42,11 +42,11 @@ public class OrdersEntity {
     @Column(name = "UpdatedAt")
     private Timestamp updatedAt;
 
-    @OneToMany(mappedBy = "order")
-    private Set<OrderItemsEntity> orderItems;
-
     @ManyToOne
     @JoinColumn(name = "UserID")
     private UsersEntity user;
+
+    @OneToMany(mappedBy = "order")
+    private Set<OrderItemsEntity> orderItems;
 
 }

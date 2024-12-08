@@ -3,16 +3,16 @@ package de.telran.onlineshop.dto;
 import java.util.Objects;
 
 //4) CartItems - товары в корзине
-public class CartItems {
+public class CartItemsDto {
     private Long cartItemID;
     private Cart cart;
     private ProductDto product;
     private int quantity;
 
-    public CartItems() {
+    public CartItemsDto() {
     }
 
-    public CartItems(Long cartItemID, Cart cart, ProductDto product, int quantity) {
+    public CartItemsDto(Long cartItemID, Cart cart, ProductDto product, int quantity) {
         this.cartItemID = cartItemID;
         this.cart = cart;
         this.product = product;
@@ -55,7 +55,7 @@ public class CartItems {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        CartItems cartItems = (CartItems) o;
+        CartItemsDto cartItems = (CartItemsDto) o;
         return Objects.equals(cartItemID, cartItems.cartItemID);
     }
 

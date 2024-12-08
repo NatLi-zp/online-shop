@@ -3,10 +3,8 @@ package de.telran.onlineshop.service;
 import de.telran.onlineshop.entity.CartEntity;
 import de.telran.onlineshop.entity.OrdersEntity;
 import de.telran.onlineshop.entity.UsersEntity;
-import de.telran.onlineshop.entity.enums.Role;
 import de.telran.onlineshop.entity.enums.Status;
-import de.telran.onlineshop.repository.CategoriesRepository;
-import de.telran.onlineshop.repository.OrdersRepository;
+import de.telran.onlineshop.repository.CartRepository;
 import de.telran.onlineshop.repository.UsersRepository;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
@@ -17,25 +15,22 @@ import java.util.Date;
 
 @Service
 @RequiredArgsConstructor
-public class OrdersService {
-
-    private final OrdersRepository ordersRepository;
+public class CartsService {
+    private final CartRepository cartRepository;
     private final UsersRepository usersRepository;
 
     @PostConstruct
     void init() {
 
-        Date currentDate = new Date();
-        Timestamp timestamp = new Timestamp(currentDate.getTime());
-
         UsersEntity user1 = usersRepository.findById(1L).orElse(null);
-        OrdersEntity order1 = new OrdersEntity(null, timestamp, "Hamburg", "+491234567", "до квартиры", Status.CREATED, timestamp, user1, null);
-        ordersRepository.save(order1);
+        CartEntity cart1 = new CartEntity(null, user1,null);
+        cartRepository.save(cart1);
 
         UsersEntity user2 = usersRepository.findById(2L).orElse(null);
-        OrdersEntity order2 = new OrdersEntity(null, timestamp, "Berlin", "+491234567444", "до подъезда", Status.PAID, timestamp, user2, null);
-        ordersRepository.save(order2);
+        CartEntity cart2 = new CartEntity(null, user2,null);
+        cartRepository.save(cart2);
 
         System.out.println("Выполняем логику при создании объекта " + this.getClass().getName());
     }
 }
+
