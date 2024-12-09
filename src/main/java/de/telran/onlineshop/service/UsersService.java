@@ -94,7 +94,7 @@ public class UsersService {
         //return userList.add(newUser);
     }
 
-    public UserDto updateUser(UserDto updUser) {
+    public UserDto updateUsers(UserDto updUser) {
 
         UsersEntity createUserEntity = new UsersEntity(updUser.getUserID(), updUser.getName(), updUser.getEmail(),
                 updUser.getPhoneNumbmer(), updUser.getPasswordHash(), updUser.getRole(),null, null, null,null);
@@ -117,16 +117,16 @@ public class UsersService {
     }
 
     //DELETE удалить
-    public void deleteUser(Long id) {
-        // usersRepository.deleteById(id); // 1й вариант реализации метода delete, менее информативно
+    public void deleteUsers(Long id) {
+         usersRepository.deleteById(id); // 1й вариант реализации метода delete, менее информативно
 
         // 2й вариант реализации метода delete c предварит. поиском
-        UsersEntity users = usersRepository.findById(id).orElse(null);
-        if (users == null) {
-            throw new RuntimeException("Нет такого объекта с Id: " + id);
-        } else {
-            usersRepository.delete(users);
-        }
+//        UsersEntity users = usersRepository.findById(id).orElse(null);
+//        if (users == null) {
+//            throw new RuntimeException("Нет такого объекта с Id: " + id);
+//        } else {
+//            usersRepository.delete(users);
+//        }
 
 //        Iterator<UserDto> it = userList.iterator();
 //        while (it.hasNext()) {

@@ -117,15 +117,15 @@ public class CategoriesService {
     }
 
     public void deleteCategories(Long id) { //delete
-        // categoriesRepository.deleteById(id); // 1й вариант реализации метода delete, менее информативно
+        categoriesRepository.deleteById(id); // 1й вариант реализации метода delete, менее информативно
 
         // 2й вариант реализации метода delete c предварит. поиском
-        CategoriesEntity categories = categoriesRepository.findById(id).orElse(null);
-        if (categories == null) {
-            throw new RuntimeException("Нет такого объекта с Id: " + id);
-        } else {
-            categoriesRepository.delete(categories);
-        }
+//        CategoriesEntity categories = categoriesRepository.findById(id).orElse(null);
+//        if (categories == null) {
+//            throw new RuntimeException("Нет такого объекта с Id: " + id);
+//        } else {
+//            categoriesRepository.delete(categories);
+//        }
 
 //        Iterator<CategoryDto> it = categoryList.iterator();
 //        while (it.hasNext()) {

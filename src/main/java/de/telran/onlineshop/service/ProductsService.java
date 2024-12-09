@@ -135,15 +135,16 @@ public class ProductsService {
 
     //DELETE удалить
     public void deleteProducts(Long id) {
-        // productsRepository.deleteById(id); // 1й вариант реализации метода delete, менее информативно
+        productsRepository.deleteById(id); // 1й вариант реализации метода delete, менее информативно
 
-        // 2й вариант реализации метода delete c предварит. поиском
-        ProductsEntity products = productsRepository.findById(id).orElse(null);
-        if (products == null) {
-            throw new RuntimeException("Нет такого объекта с Id: " + id);
-        } else {
-            productsRepository.delete(products);
-        }
+//        // 2й вариант реализации метода delete c предварит. поиском
+//        ProductsEntity products = productsRepository.findById(id).orElse(null);
+//        if (products == null) {
+//            throw new RuntimeException("Нет такого объекта с Id: " + id);
+//        } else {
+//            productsRepository.delete(products);
+//        }
+
 //        Iterator<ProductDto> it = productList.iterator();
 //        while (it.hasNext()) {
 //            ProductDto current = it.next();

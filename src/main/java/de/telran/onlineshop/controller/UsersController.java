@@ -1,5 +1,6 @@
 package de.telran.onlineshop.controller;
 
+import de.telran.onlineshop.dto.CategoryDto;
 import de.telran.onlineshop.dto.UserDto;
 import de.telran.onlineshop.service.UsersService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +27,9 @@ public class UsersController {
     public ResponseEntity<UserDto> getUserById(@PathVariable Long id) {
         UserDto user = usersService.getUserById(id);
         return ResponseEntity.status(222).body(user);
+
+//    public UserDto getUserById(@PathVariable Long id) { ///categories/find/3
+//        return usersService.getUserById(id);
     }
 
     @GetMapping(value = "/get")
@@ -41,16 +45,17 @@ public class UsersController {
     }
 
     @PutMapping
-    public ResponseEntity<UserDto> updateClient(@RequestBody UserDto user) {
-        UserDto userResponse = usersService.updateUser(user);
+    public ResponseEntity<UserDto> updateUsers(@RequestBody UserDto user) {
+        UserDto userResponse = usersService.updateUsers(user);
         return ResponseEntity.status(HttpStatus.CREATED).body(userResponse);
     }
 
     @DeleteMapping(value = "/{id}") //delete
     public ResponseEntity<Void> deleteUsers(@PathVariable Long id) {
-        usersService.deleteUser(id);
+        usersService.deleteUsers(id);
         return ResponseEntity.noContent().build();
     }
+
 
 //    //GET прочитать
 //    @GetMapping
