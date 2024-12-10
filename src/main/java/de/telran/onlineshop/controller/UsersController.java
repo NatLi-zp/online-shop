@@ -26,7 +26,8 @@ public class UsersController {
     @GetMapping(value = "/find/{id}")
     public ResponseEntity<UserDto> getUserById(@PathVariable Long id) {
         UserDto user = usersService.getUserById(id);
-        return ResponseEntity.status(222).body(user);
+        return ResponseEntity.status(200).body(user); // поставила,чтоб тест проходил
+        // return ResponseEntity.status(222).body(user);
 
 //    public UserDto getUserById(@PathVariable Long id) { ///categories/find/3
 //        return usersService.getUserById(id);
@@ -47,7 +48,8 @@ public class UsersController {
     @PutMapping
     public ResponseEntity<UserDto> updateUsers(@RequestBody UserDto user) {
         UserDto userResponse = usersService.updateUsers(user);
-        return ResponseEntity.status(HttpStatus.CREATED).body(userResponse);
+        //  return ResponseEntity.status(HttpStatus.CREATED).body(userResponse);
+        return ResponseEntity.status(HttpStatus.ACCEPTED).body(userResponse); // поставила,чтоб тест проходил
     }
 
     @DeleteMapping(value = "/{id}") //delete

@@ -86,9 +86,18 @@ class ProductsControllerTest {
                 .andExpect(jsonPath("$.name").value("Test"));
     }
 
-//    @Test
-//    void getProductByName() {
-//    }
+    @Test
+    void getProductByName() throws Exception {
+        String nameTest = "TestName";
+        when(productsServiceMock.getProductByName(nameTest)).thenReturn(new ProductDto(1L, nameTest,null, null, null, null, timestamp, timestamp));
+        this.mockMvc.perform(get("/products/get?name=TestName", nameTest))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.productID").exists())
+                .andExpect(jsonPath("$.productID").value(1))
+                .andExpect(jsonPath("$.name").value(nameTest));
+
+    }
 
     @Test
     void createProducts() throws Exception {
@@ -131,7 +140,7 @@ class ProductsControllerTest {
 
         this.mockMvc.perform(delete("/products/{id}", inputId)) ///products/1
                 .andDo(print()) //печать лога вызова
-                .andExpect(status().isOk());
+                .andExpect(status().isNoContent());
 
         //return void
         verify(productsServiceMock).deleteProducts(inputId);

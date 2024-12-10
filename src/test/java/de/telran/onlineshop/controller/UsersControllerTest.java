@@ -71,25 +71,23 @@ class UsersControllerTest {
 
         this.mockMvc.perform(get("/users/find/{id}", 1)) ///users/find/1
                 .andDo(print()) //печать лога вызова
-                //  .andExpect(status().isOk())  //не работает
+                .andExpect(status().isOk())  //не работает
                 .andExpect(jsonPath("$.userID").exists())
                 .andExpect(jsonPath("$.userID").value(1))
                 .andExpect(jsonPath("$.name").value("Test"));
     }
 
-//    @Test
-//    void getUserByName() throws Exception {
-//        Long testId = 1L;
-//        String testName = "Test";
-//        when(usersServiceMock.getUserByName(testName)).thenReturn(new UserDto(testId,"Test",null,null,null,null));
-//
-//        this.mockMvc.perform(get("/users/get/{name}", 1)) ///users//get/1
-//                .andDo(print()) //печать лога вызова
-//                //  .andExpect(status().isOk())  //не работает
-//                .andExpect(jsonPath("$.userID").exists())
-//                .andExpect(jsonPath("$.userID").value(1))
-//                .andExpect(jsonPath("$.name").value("Test"));
-//    }
+    @Test
+    void getUserByName() throws Exception {
+        String testName = "TestName";
+        when(usersServiceMock.getUserByName(testName)).thenReturn(new UserDto(1L, testName, null, null, null, null));
+        this.mockMvc.perform(get("/users/get?name=TestName", testName))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.userID").exists())
+                .andExpect(jsonPath("$.userID").value(1))
+                .andExpect(jsonPath("$.name").value(testName));
+    }
 
     @Test
     void createUsers() throws Exception {
@@ -119,7 +117,7 @@ class UsersControllerTest {
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(inputUser))) // jackson: object -> json
                 .andDo(print())
-                //.andExpect(status().isAccepted()) // Не работает
+                .andExpect(status().isAccepted()) // Не работает
                 .andExpect(jsonPath("$.userID").exists())
                 .andExpect(jsonPath("$.userID").value(expectedUser.getUserID()))
                 .andExpect(jsonPath("$.name").value(expectedUser.getName()));
@@ -131,8 +129,8 @@ class UsersControllerTest {
         Long inputId = 1L;
 
         this.mockMvc.perform(delete("/users/{id}", inputId)) ///categories/1
-                .andDo(print());
-        //  .andExpect(status().isOk()); // Не работает
+                .andDo(print())
+                .andExpect(status().isNoContent());
 
         //return void
         verify(usersServiceMock).deleteUsers(inputId);
