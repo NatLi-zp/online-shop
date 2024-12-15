@@ -5,14 +5,14 @@ import java.util.Objects;
 //4) CartItems - товары в корзине
 public class CartItemsDto {
     private Long cartItemID;
-    private Cart cart;
+    private CartDto cart;
     private ProductDto product;
     private int quantity;
 
     public CartItemsDto() {
     }
 
-    public CartItemsDto(Long cartItemID, Cart cart, ProductDto product, int quantity) {
+    public CartItemsDto(Long cartItemID, CartDto cart, ProductDto product, int quantity) {
         this.cartItemID = cartItemID;
         this.cart = cart;
         this.product = product;
@@ -27,11 +27,11 @@ public class CartItemsDto {
         this.cartItemID = cartItemID;
     }
 
-    public Cart getCart() {
+    public CartDto getCart() {
         return cart;
     }
 
-    public void setCart(Cart cart) {
+    public void setCart(CartDto cart) {
         this.cart = cart;
     }
 

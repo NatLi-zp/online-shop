@@ -1,9 +1,16 @@
 package de.telran.onlineshop.dto;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import de.telran.onlineshop.entity.CategoriesEntity;
+
 import java.sql.Timestamp;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 //2) Products - товары
+@JsonInclude(JsonInclude.Include.NON_NULL) //если равно null - скрыть в выводе.Include.NON_NULL) /
 public class ProductDto {
     private Long productID;
     private String name;
@@ -16,10 +23,31 @@ public class ProductDto {
     private Timestamp createdAt;
     private Timestamp updatedAt;
 
-    public ProductDto() {
+    private CategoryDto category; //мое 111224
+
+    @JsonManagedReference  // мое 111224
+    private Set<FavoritesDto> favorites = new HashSet<>();
+
+     public ProductDto() {
     }
 
-   // public ProductDto(Long productID, String name, String description, Double price, Long categoryID, String imageURL, Double discountPrice, Timestamp createdAt, Timestamp updatedAt) {
+    public CategoryDto getCategory() {
+        return category;
+    }
+
+    public void setCategory(CategoryDto category) {
+        this.category = category;
+    }
+
+    public Set<FavoritesDto> getFavorites() {
+        return favorites;
+    }
+
+    public void setFavorites(Set<FavoritesDto> favorites) {
+        this.favorites = favorites;
+    }
+
+    // public ProductDto(Long productID, String name, String description, Double price, Long categoryID, String imageURL, Double discountPrice, Timestamp createdAt, Timestamp updatedAt) {
    public ProductDto(Long productID, String name, String description, Double price, String imageURL, Double discountPrice, Timestamp createdAt, Timestamp updatedAt) {
 
        this.productID = productID;

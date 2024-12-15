@@ -1,19 +1,43 @@
 package de.telran.onlineshop.dto;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import de.telran.onlineshop.entity.FavoritesEntity;
 import de.telran.onlineshop.entity.enums.Role;
 
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 //1) Users - пользователи
+
+@JsonInclude(JsonInclude.Include.NON_NULL) // если = null ,скрыть в выводе
 public class UserDto {
     private Long userID;
     private String name;
+
+    @JsonInclude(JsonInclude.Include.NON_NULL) // если = null ,скрыть в выводе
     private String email;
     private String phoneNumber;
     private String passwordHash;
     private Role role;
 
+    @JsonManagedReference  // мое 111224
+    private Set<FavoritesDto> favorites = new HashSet<>();
+
+    @JsonBackReference  // мое 111224
+    private CartDto cart;
+
     public UserDto() {
+    }
+
+    public CartDto getCart() {
+        return cart;
+    }
+
+    public void setCart(CartDto cart) {
+        this.cart = cart;
     }
 
     public UserDto(Long userID, String name, String email, String phoneNumber, String passwordHash, Role role) {
@@ -25,11 +49,19 @@ public class UserDto {
         this.role = role;
     }
 
-    public Long  getUserID() {
+    public Set<FavoritesDto> getFavorites() {
+        return favorites;
+    }
+
+    public void setFavorites(Set<FavoritesDto> favorites) {
+        this.favorites = favorites;
+    }
+
+    public Long getUserID() {
         return userID;
     }
 
-    public void setUserID(Long  userID) {
+    public void setUserID(Long userID) {
         this.userID = userID;
     }
 

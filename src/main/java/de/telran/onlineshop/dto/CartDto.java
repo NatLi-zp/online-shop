@@ -3,14 +3,14 @@ package de.telran.onlineshop.dto;
 import java.util.Objects;
 
 //Cart - корзина
-public class Cart {
+public class CartDto {
     private Long cartID;
     private UserDto user;
 
-    public Cart() {
+    public CartDto() {
     }
 
-    public Cart(Long cartID, UserDto user) {
+    public CartDto(Long cartID, UserDto user) {
         this.cartID = cartID;
         this.user = user;
     }
@@ -35,7 +35,7 @@ public class Cart {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Cart cart = (Cart) o;
+        CartDto cart = (CartDto) o;
         return Objects.equals(cartID, cart.cartID);
     }
 

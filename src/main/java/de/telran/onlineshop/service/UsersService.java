@@ -1,9 +1,11 @@
 package de.telran.onlineshop.service;
 
+import de.telran.onlineshop.configure.MapperUtil;
 import de.telran.onlineshop.entity.CartEntity;
 import de.telran.onlineshop.entity.enums.Role;
 import de.telran.onlineshop.entity.UsersEntity;
 import de.telran.onlineshop.dto.UserDto;
+import de.telran.onlineshop.mapper.Mappers;
 import de.telran.onlineshop.repository.CartRepository;
 import de.telran.onlineshop.repository.UsersRepository;
 import jakarta.annotation.PostConstruct;
@@ -20,6 +22,7 @@ public class UsersService {
 
     private final UsersRepository usersRepository;
     private final CartRepository cartRepository;
+    private final Mappers mappers;
 
     private List<UserDto> userList;
 
@@ -51,20 +54,24 @@ public class UsersService {
     }
 
     public List<UserDto> getAllUsers() {
-
-        //return userList;
         List<UsersEntity> usersEntities = usersRepository.findAll();
-        return usersEntities.stream()
-                .map(entity -> new UserDto(entity.getUserId(), entity.getName(), entity.getEmail(), entity.getPhoneNumber(), entity.getPasswordHash(), entity.getRole()))
-                .collect(Collectors.toList());
+        List<UserDto> userDtoList = MapperUtil.convertList(usersEntities, mappers::convertToUserDto);
+        return userDtoList;
+//        List<UsersEntity> usersEntities = usersRepository.findAll();
+//        return usersEntities.stream()
+//                .map(entity -> new UserDto(entity.getUserId(), entity.getName(), entity.getEmail(), entity.getPhoneNumber(), entity.getPasswordHash(), entity.getRole()))
+//                .collect(Collectors.toList());
     }
 
     public UserDto getUserById(Long id) {
 
         UsersEntity usersEntity = usersRepository.findById(id).orElse(new UsersEntity());
+        UserDto userDto = mappers.convertToUserDto(usersEntity);
 
-        return new UserDto(usersEntity.getUserId(), usersEntity.getName(), usersEntity.getEmail(),
-                usersEntity.getPhoneNumber(), usersEntity.getPasswordHash(), usersEntity.getRole());
+        return userDto;
+
+//        return new UserDto(usersEntity.getUserId(), usersEntity.getName(), usersEntity.getEmail(),
+//                usersEntity.getPhoneNumber(), usersEntity.getPasswordHash(), usersEntity.getRole());
 
         //        return userList.stream()
         //         .filter(user -> user.getUserID() == id)
@@ -75,8 +82,12 @@ public class UsersService {
     public UserDto getUserByName(String name) { //user/get?name=Other,k=2
         UsersEntity usersEntity = usersRepository.findByNameNative(name); // используем native
 
-        return new UserDto(usersEntity.getUserId(), usersEntity.getName(), usersEntity.getEmail(),
-                usersEntity.getPhoneNumber(), usersEntity.getPasswordHash(), usersEntity.getRole());
+        //Homework Mapper 151224
+        UserDto userDto = mappers.convertToUserDto(usersEntity);
+        return userDto;
+
+//        return new UserDto(usersEntity.getUserId(), usersEntity.getName(), usersEntity.getEmail(),
+//                usersEntity.getPhoneNumber(), usersEntity.getPasswordHash(), usersEntity.getRole());
 
 //        return userList.stream()
 //                .filter(user -> user.getName().equals(name))
@@ -94,15 +105,18 @@ public class UsersService {
         //return userList.add(newUser);
     }
 
-    public UserDto updateUsers(UserDto updUser) {
+    public UserDto updateUsers(UserDto user) {
+        UsersEntity usersEntity = mappers.convertToUserEntity(user); // из Dto в Entity
+        UsersEntity returnUserEntity = usersRepository.save(usersEntity); // сохранили в БД
+        return mappers.convertToUserDto(returnUserEntity); //из Entity  в Dto
 
-        UsersEntity createUserEntity = new UsersEntity(updUser.getUserID(), updUser.getName(), updUser.getEmail(),
-                updUser.getPhoneNumbmer(), updUser.getPasswordHash(), updUser.getRole(),null, null, null,null);
-        UsersEntity returnUser = usersRepository.save(createUserEntity);
-
-        // трансформируем данные из Entity в Dto и возвращаем пользователю
-        return new UserDto(returnUser.getUserId(), returnUser.getName(), returnUser.getEmail(),
-                returnUser.getPhoneNumber(), returnUser.getPasswordHash(), returnUser.getRole());
+//        UsersEntity createUserEntity = new UsersEntity(updUser.getUserID(), updUser.getName(), updUser.getEmail(),
+//                updUser.getPhoneNumbmer(), updUser.getPasswordHash(), updUser.getRole(), null, null, null, null);
+//        UsersEntity returnUser = usersRepository.save(createUserEntity);
+//
+//        // трансформируем данные из Entity в Dto и возвращаем пользователю
+//        return new UserDto(returnUser.getUserId(), returnUser.getName(), returnUser.getEmail(),
+//                returnUser.getPhoneNumber(), returnUser.getPasswordHash(), returnUser.getRole());
 
 //        UserDto result = userList.stream()
 //                .filter(u -> u.getUserID() == user.getUserID())
@@ -118,7 +132,7 @@ public class UsersService {
 
     //DELETE удалить
     public void deleteUsers(Long id) {
-         usersRepository.deleteById(id); // 1й вариант реализации метода delete, менее информативно
+        usersRepository.deleteById(id); // 1й вариант реализации метода delete, менее информативно
 
         // 2й вариант реализации метода delete c предварит. поиском
 //        UsersEntity users = usersRepository.findById(id).orElse(null);
@@ -139,7 +153,7 @@ public class UsersService {
 
     @PreDestroy
     void destroy() {
-     //   userList.clear();
+        //   userList.clear();
         System.out.println("Выполняем логику при окончании работы с объектом" + this.getClass().getName());
     }
 }
