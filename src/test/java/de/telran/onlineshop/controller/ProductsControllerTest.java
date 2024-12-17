@@ -1,11 +1,7 @@
 package de.telran.onlineshop.controller;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import de.telran.onlineshop.dto.CategoryDto;
 import de.telran.onlineshop.dto.ProductDto;
-import de.telran.onlineshop.entity.CategoriesEntity;
-import de.telran.onlineshop.service.CategoriesService;
 import de.telran.onlineshop.service.ProductsService;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -143,6 +139,6 @@ class ProductsControllerTest {
                 .andExpect(status().isNoContent());
 
         //return void
-        verify(productsServiceMock).deleteProducts(inputId);
+        verify(productsServiceMock).deleteProductsById(inputId);
     }
 }

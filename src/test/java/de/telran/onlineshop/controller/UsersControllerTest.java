@@ -133,6 +133,6 @@ class UsersControllerTest {
                 .andExpect(status().isNoContent());
 
         //return void
-        verify(usersServiceMock).deleteUsers(inputId);
+        verify(usersServiceMock).deleteUsersById(inputId);
     }
 }

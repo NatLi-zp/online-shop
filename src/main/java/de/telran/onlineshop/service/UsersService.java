@@ -96,13 +96,24 @@ public class UsersService {
     }
 
     //POST вставить
-    public boolean createUsers(UserDto newUser) { //insert
+    public boolean createUsers(UserDto newUser) {//insert
+
         UsersEntity createUserEntity = new UsersEntity(null, newUser.getName(), newUser.getEmail(),
                 newUser.getPhoneNumbmer(), newUser.getPasswordHash(), newUser.getRole(), null, null, null, null);
 
         UsersEntity returnUser = usersRepository.save(createUserEntity);
         return createUserEntity.getUserId() != null;
         //return userList.add(newUser);
+    }
+
+
+    public UserDto insertUsers(UserDto usersDto) {//insert
+
+        UsersEntity usersEntity = mappers.convertToUserEntity(usersDto);
+        usersEntity.setUserId(null);
+        UsersEntity savedUserEntity = usersRepository.save(usersEntity);
+        return mappers.convertToUserDto(savedUserEntity);
+
     }
 
     public UserDto updateUsers(UserDto user) {
@@ -131,24 +142,17 @@ public class UsersService {
     }
 
     //DELETE удалить
-    public void deleteUsers(Long id) {
-        usersRepository.deleteById(id); // 1й вариант реализации метода delete, менее информативно
+    public void deleteUsersById(Long id) {
+        //   usersRepository.deleteById(id); // 1й вариант реализации метода delete, менее информативно
 
         // 2й вариант реализации метода delete c предварит. поиском
-//        UsersEntity users = usersRepository.findById(id).orElse(null);
-//        if (users == null) {
-//            throw new RuntimeException("Нет такого объекта с Id: " + id);
-//        } else {
-//            usersRepository.delete(users);
-//        }
+        UsersEntity usersEntity = usersRepository.findById(id).orElse(null);
+        if (usersEntity != null) {
+            usersRepository.delete(usersEntity);
+        } else {
+            throw new NullPointerException("Not Found UsersEntity");
+        }
 
-//        Iterator<UserDto> it = userList.iterator();
-//        while (it.hasNext()) {
-//            UserDto current = it.next();
-//            if (current.getUserID() == id) {
-//                it.remove();
-//            }
-//        }
     }
 
     @PreDestroy
