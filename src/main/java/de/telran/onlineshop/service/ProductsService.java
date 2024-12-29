@@ -25,7 +25,7 @@ public class ProductsService {
 
     private List<ProductDto> productList;
 
-    @PostConstruct
+    //@PostConstruct
     void init() {
 
         Date currentDate = new Date();

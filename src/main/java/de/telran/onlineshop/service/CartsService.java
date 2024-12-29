@@ -19,7 +19,7 @@ public class CartsService {
     private final CartRepository cartRepository;
     private final UsersRepository usersRepository;
 
-    @PostConstruct
+    //@PostConstruct
     void init() {
 
         UsersEntity user1 = usersRepository.findById(1L).orElse(null);

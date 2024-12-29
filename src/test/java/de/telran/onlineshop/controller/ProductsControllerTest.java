@@ -85,7 +85,7 @@ class ProductsControllerTest {
     @Test
     void getProductByName() throws Exception {
         String nameTest = "TestName";
-        when(productsServiceMock.getProductByName(nameTest)).thenReturn(new ProductDto(1L, nameTest,null, null, null, null, timestamp, timestamp));
+        when(productsServiceMock.getProductByName(nameTest)).thenReturn(new ProductDto(1L, nameTest, null, null, null, null, timestamp, timestamp));
         this.mockMvc.perform(get("/products/get?name=TestName", nameTest))
                 .andDo(print())
                 .andExpect(status().isOk())

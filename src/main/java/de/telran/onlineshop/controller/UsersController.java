@@ -23,6 +23,11 @@ public class UsersController {
         return new ResponseEntity<>(users, HttpStatus.valueOf(200));
     }
 
+//    @GetMapping
+//        public List<UserDto> getAllUsers() {
+//            return usersService.getAllUsers();
+//        }
+
     @GetMapping(value = "/find/{id}")
     public ResponseEntity<UserDto> getUserById(@PathVariable Long id) {
         UserDto user = usersService.getUserById(id);
@@ -40,8 +45,12 @@ public class UsersController {
     }
 
     @PostMapping //Jackson
-    public ResponseEntity<Boolean> createUsers(@RequestBody UserDto newUser) { //insert
-        boolean user = usersService.createUsers(newUser);
+//    public ResponseEntity<Boolean> createUsers(@RequestBody UserDto newUser) { //insert
+//        boolean user = usersService.createUsers(newUser);
+//        return ResponseEntity.status(HttpStatus.CREATED).body(user);
+//    }
+    public ResponseEntity<UserDto> createUsers(@RequestBody UserDto newUser) { //insert
+        UserDto user = usersService.insertUsers(newUser);
         return ResponseEntity.status(HttpStatus.CREATED).body(user);
     }
 

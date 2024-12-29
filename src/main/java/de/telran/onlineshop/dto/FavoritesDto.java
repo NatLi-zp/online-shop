@@ -1,17 +1,10 @@
 package de.telran.onlineshop.dto;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import de.telran.onlineshop.entity.ProductsEntity;
-import de.telran.onlineshop.entity.UsersEntity;
-import jakarta.persistence.*;
-import lombok.*;
 
-@AllArgsConstructor
-@NoArgsConstructor
-@Data
 public class FavoritesDto {
 
-    private Long favoriteId;
+    private Long favoriteID;
 
     @JsonBackReference  // мое 111224
     private UserDto user;
@@ -19,4 +12,33 @@ public class FavoritesDto {
     @JsonBackReference  // мое 111224
     private ProductDto product;
 
+    public FavoritesDto(Long favoriteId, UserDto user, ProductDto product) {
+        this.favoriteID = favoriteId;
+        this.user = user;
+        this.product = product;
+    }
+
+    public Long getFavoriteID() {
+        return favoriteID;
+    }
+
+    public void setFavoriteID(Long favoriteID) {
+        this.favoriteID = favoriteID;
+    }
+
+    public UserDto getUser() {
+        return user;
+    }
+
+    public void setUser(UserDto user) {
+        this.user = user;
+    }
+
+    public ProductDto getProduct() {
+        return product;
+    }
+
+    public void setProduct(ProductDto product) {
+        this.product = product;
+    }
 }

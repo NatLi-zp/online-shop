@@ -1,0 +1,45 @@
+-- liquibase formatted sql
+
+-- changeset alex2:Categories
+CREATE TABLE Categories (CategoryID INT AUTO_INCREMENT NOT NULL,
+Name VARCHAR(255) NULL,
+CONSTRAINT PK_CATEGORIES PRIMARY KEY (CategoryID));
+
+-- changeset alex2:Products
+CREATE TABLE Products (ProductID INT AUTO_INCREMENT NOT NULL,
+Name VARCHAR(255) NULL,
+CategoryID INT NULL,
+DiscountPrice DOUBLE NULL,
+Price DOUBLE NULL,
+CreatedAt datetime NULL,
+UpdatedAt datetime NULL,
+`Description` VARCHAR(255) NULL,
+ImageURL VARCHAR(255) NULL,
+CONSTRAINT PK_PRODUCTS PRIMARY KEY (ProductID));
+
+-- changeset ng:Users 261224 мое
+CREATE TABLE Users (UserID INT AUTO_INCREMENT NOT NULL,
+Name VARCHAR(255) NULL,
+Email VARCHAR(255) NULL,
+PhoneNumber VARCHAR(64) NULL,
+PasswordHash VARCHAR(64) NULL,
+Role VARCHAR(64) NULL,
+CONSTRAINT PK_USERS PRIMARY KEY (UserID));
+
+-- changeset ng:Favorites 261224 мое
+CREATE TABLE Favorites (FavoriteID INT AUTO_INCREMENT NOT NULL,
+UserID INT NULL,
+ProductID INT NULL,
+CONSTRAINT PK_FAVORITES PRIMARY KEY (FavoriteID));
+
+-- changeset ng:Cart 261224 мое
+CREATE TABLE Cart (CartID INT AUTO_INCREMENT NOT NULL,
+UserID INT NULL,
+CONSTRAINT PK_CART PRIMARY KEY (CartID));
+
+-- changeset alex2:IndexProductsFk
+CREATE INDEX FK_PRODUCTS_CATEGORYID_IDX ON Products(CategoryID);
+
+-- changeset alex2:REFERENCES_Products_Categories
+ALTER TABLE Products ADD CONSTRAINT FK_PRODUCTS_CATEGORYID_REFERENCES FOREIGN KEY (CategoryID) REFERENCES Categories (CategoryID) ON UPDATE RESTRICT ON DELETE RESTRICT;
+

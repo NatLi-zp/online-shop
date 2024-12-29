@@ -19,7 +19,7 @@ public class CartItemsService {
     private final CartRepository cartRepository;
     private final ProductsRepository productsRepository;
 
-    @PostConstruct
+    //@PostConstruct
     void init() {
         CartEntity cart1 = cartRepository.findById(1L).orElse(null);
         System.out.println("--------------------------------------"+cart1);

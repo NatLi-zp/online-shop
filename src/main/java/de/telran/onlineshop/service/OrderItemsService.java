@@ -13,7 +13,7 @@ public class OrderItemsService {
     private final OrdersRepository ordersRepository;
     private final ProductsRepository productsRepository;
 
-    @PostConstruct
+    //@PostConstruct
     void init() {
         OrdersEntity order1 = ordersRepository.findById(1L).orElse(null);
         ProductsEntity product1 = productsRepository.findById(2L).orElse(null);

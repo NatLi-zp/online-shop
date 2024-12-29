@@ -3,13 +3,12 @@ package de.telran.onlineshop.mapper;
 import de.telran.onlineshop.configure.MapperUtil;
 import de.telran.onlineshop.dto.*;
 import de.telran.onlineshop.entity.*;
-import lombok.Data;
+
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.stereotype.Component;
 
-import java.util.Date;
 import java.util.Set;
 
 @Component
@@ -23,11 +22,11 @@ public class Mappers {
         modelMapper.typeMap(UsersEntity.class, UserDto.class)
                 .addMappings(mapper -> mapper.skip(UserDto::setEmail)); // исключаем этот метод из работы
         UserDto userDto = modelMapper.map(usersEntity, UserDto.class); //автомат
-        if (userDto.getPasswordHash() != null)
+        if (userDto.getPasswordHash()!=null)
             userDto.setPasswordHash("***"); // замещаем данных
 
         // преобразовываем
-        if (usersEntity.getFavorites() != null) {
+        if (usersEntity.getFavorites()!=null) {
             Set<FavoritesDto> favoritesDtoSet = MapperUtil.convertSet(usersEntity.getFavorites(), this::convertToFavoritesDto);
             userDto.setFavorites(favoritesDtoSet);
         }
@@ -39,7 +38,7 @@ public class Mappers {
 
     public CartDto convertToCartDto(CartEntity cartEntity) {
         CartDto cartDto = null;
-        if (cartEntity != null)
+        if(cartEntity!=null)
             cartDto = modelMapper.map(cartEntity, CartDto.class); //автомат
         return cartDto;
     }
@@ -85,4 +84,24 @@ public class Mappers {
         ProductsEntity productsEntity = modelMapper.map(productDto, ProductsEntity.class); //автомат
         return productsEntity;
     }
+
+    //Homework 261224
+//    public FavoritesDto convertToFavoriteDto(FavoritesEntity favoritesEntity) {
+//        modelMapper.typeMap(FavoritesEntity.class, FavoritesDto.class);
+//        FavoritesDto favoritesDto = modelMapper.map(favoritesEntity, FavoritesDto.class); //автомат
+
+//        // преобразовываем
+//        if (favoritesEntity.getFavorites() != null) {
+//            Set<FavoritesDto> favoritesDtoSet = MapperUtil.convertSet(usersEntity.getFavorites(), this::convertToFavoritesDto);
+//            userDto.setFavorites(favoritesDtoSet);
+//        }
+
+//        UserDto userDto = convertToUserDto(favoritesEntity.getUser()); // первый связанный объект
+//        favoritesDto.setUser(userDto);
+//
+//        ProductDto productsDto = convertToProductDto(favoritesEntity.getProduct()); // второй связанный объект
+//        favoritesDto.setProduct(productsDto);
+
+//        return favoritesDto;
+//    }
 }

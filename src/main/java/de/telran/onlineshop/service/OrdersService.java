@@ -22,7 +22,7 @@ public class OrdersService {
     private final OrdersRepository ordersRepository;
     private final UsersRepository usersRepository;
 
-    @PostConstruct
+    //@PostConstruct
     void init() {
 
         Date currentDate = new Date();

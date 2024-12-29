@@ -25,10 +25,10 @@ public class ProductsController {
         this.productsService = productsService;
     }
 
-    //@GetMapping
-    //    public List<Product> getAllProducts() {
-    //        return productsService.getAllProducts();
-    //    }
+//    @GetMapping
+//        public List<ProductDto> getAllProducts() {
+//            return productsService.getAllProducts();
+//        }
     @GetMapping
     public ResponseEntity<List<ProductDto>> getAllProducts() {
         List<ProductDto> products = productsService.getAllProducts();

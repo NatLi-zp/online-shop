@@ -33,7 +33,7 @@ public class CategoriesService {
 
     private List<CategoryDto> categoryList;
 
-    @PostConstruct
+   // @PostConstruct
     void init() {
         CategoriesEntity category1 = new CategoriesEntity(null, "Продукты");
         categoriesRepository.save(category1);

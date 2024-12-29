@@ -211,4 +211,13 @@ class UsersServiceTest {
         when(usersRepositoryMock.findById(testId)).thenReturn(Optional.ofNullable(null));
         assertThrows(NullPointerException.class, () -> usersServiceTest.deleteUsersById(testId));
     }
+
+    @Test
+    void initTest() {
+        when(cartRepositoryMock.save(any(CartEntity.class))).thenReturn(new CartEntity());
+        when(usersRepositoryMock.save(any(UsersEntity.class))).thenReturn(new UsersEntity());
+        usersServiceTest.init();
+        verify(cartRepositoryMock,times(3)).save(any(CartEntity.class));
+        verify(usersRepositoryMock,times(3)).save(any(UsersEntity.class));
+    }
 }

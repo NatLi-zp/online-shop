@@ -27,7 +27,7 @@ public class UsersService {
     private List<UserDto> userList;
 
 
-    @PostConstruct
+    //@PostConstruct
     void init() {
 //        userList = new ArrayList<>();
 //        userList.add(new User(1L, "Петя Петров", "petrov@gmail.com", "+49123123123", "111", Role.CLIENT));
@@ -96,15 +96,15 @@ public class UsersService {
     }
 
     //POST вставить
-    public boolean createUsers(UserDto newUser) {//insert
-
-        UsersEntity createUserEntity = new UsersEntity(null, newUser.getName(), newUser.getEmail(),
-                newUser.getPhoneNumbmer(), newUser.getPasswordHash(), newUser.getRole(), null, null, null, null);
-
-        UsersEntity returnUser = usersRepository.save(createUserEntity);
-        return createUserEntity.getUserId() != null;
-        //return userList.add(newUser);
-    }
+//    public boolean createUsers(UserDto newUser) {//insert
+//
+//        UsersEntity createUserEntity = new UsersEntity(null, newUser.getName(), newUser.getEmail(),
+//                newUser.getPhoneNumber(), newUser.getPasswordHash(), newUser.getRole(), null, null, null, null);
+//
+//        UsersEntity returnUser = usersRepository.save(createUserEntity);
+//        return createUserEntity.getUserId() != null;
+//        //return userList.add(newUser);
+//    }
 
 
     public UserDto insertUsers(UserDto usersDto) {//insert
