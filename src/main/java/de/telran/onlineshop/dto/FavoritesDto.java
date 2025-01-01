@@ -12,6 +12,9 @@ public class FavoritesDto {
     @JsonBackReference  // мое 111224
     private ProductDto product;
 
+    public FavoritesDto() {
+    }
+
     public FavoritesDto(Long favoriteId, UserDto user, ProductDto product) {
         this.favoriteID = favoriteId;
         this.user = user;

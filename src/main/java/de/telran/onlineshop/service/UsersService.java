@@ -29,37 +29,39 @@ public class UsersService {
 
     //@PostConstruct
     void init() {
-//        userList = new ArrayList<>();
-//        userList.add(new User(1L, "Петя Петров", "petrov@gmail.com", "+49123123123", "111", Role.CLIENT));
-//        userList.add(new User(2L, "Вася Васечкин", "vasiliy@gmail.com", "+4912312777", "222", Role.CLIENT));
-//        userList.add(new User(3L, "Гусь", "gus@gmail.com", "+491231255555", "777", Role.ADMINISTRATOR));
+////        userList = new ArrayList<>();
+////        userList.add(new User(1L, "Петя Петров", "petrov@gmail.com", "+49123123123", "111", Role.CLIENT));
+////        userList.add(new User(2L, "Вася Васечкин", "vasiliy@gmail.com", "+4912312777", "222", Role.CLIENT));
+////        userList.add(new User(3L, "Гусь", "gus@gmail.com", "+491231255555", "777", Role.ADMINISTRATOR));
 
 
-        CartEntity cart1 = new CartEntity();
-        cart1 = cartRepository.save(cart1);
-        UsersEntity user1 = new UsersEntity(null, "Петя Петров", "petrov@gmail.com", "+49123123123", "111", Role.CLIENT, cart1, null, null, null);
-        usersRepository.save(user1);
-
-        CartEntity cart2 = new CartEntity();
-        cart2 = cartRepository.save(cart2);
-        UsersEntity user2 = new UsersEntity(null, "Вася Васечкин", "vasiliy@gmail.com", "+4912312777", "222", Role.CLIENT, cart2, null, null, null);
-        usersRepository.save(user2);
-
-        CartEntity cart3 = new CartEntity();
-        cart3 = cartRepository.save(cart3);
-        UsersEntity user3 = new UsersEntity(null, "Гусь", "gus@gmail.com", "+491231255555", "777", Role.ADMINISTRATOR, cart3, null, null, null);
-        usersRepository.save(user3);
-
-        System.out.println("Выполняем логику при создании объекта " + this.getClass().getName());
+//        CartEntity cart1 = new CartEntity();
+//        cart1 = cartRepository.save(cart1);
+//        UsersEntity user1 = new UsersEntity(null, "Петя Петров1111", "petrov@gmail.com", "+49123123123", "111", Role.CLIENT, cart1, null, null, null);
+//        usersRepository.save(user1);
+//
+//        CartEntity cart2 = new CartEntity();
+//        cart2 = cartRepository.save(cart2);
+//        UsersEntity user2 = new UsersEntity(null, "Вася Васечкин", "vasiliy@gmail.com", "+4912312777", "222", Role.CLIENT, cart2, null, null, null);
+//        usersRepository.save(user2);
+//
+//        CartEntity cart3 = new CartEntity();
+//        cart3 = cartRepository.save(cart3);
+//        UsersEntity user3 = new UsersEntity(null, "Гусь", "gus@gmail.com", "+491231255555", "777", Role.ADMINISTRATOR, cart3, null, null, null);
+//        usersRepository.save(user3);
+//
+//        System.out.println("Выполняем логику при создании объекта " + this.getClass().getName());
     }
 
     public List<UserDto> getAllUsers() {
         List<UsersEntity> usersEntities = usersRepository.findAll();
         List<UserDto> userDtoList = MapperUtil.convertList(usersEntities, mappers::convertToUserDto);
         return userDtoList;
+
 //        List<UsersEntity> usersEntities = usersRepository.findAll();
 //        return usersEntities.stream()
-//                .map(entity -> new UserDto(entity.getUserId(), entity.getName(), entity.getEmail(), entity.getPhoneNumber(), entity.getPasswordHash(), entity.getRole()))
+//              //  .map(entity -> new UserDto(entity.getUserId(), entity.getName(), entity.getEmail(), entity.getPhoneNumber(), entity.getPasswordHash(), entity.getRole()))
+//                .map(entity -> new UserDto(entity.getUserId(), entity.getName(), entity.getEmail(), entity.getPhoneNumber(), entity.getPasswordHash()))
 //                .collect(Collectors.toList());
     }
 

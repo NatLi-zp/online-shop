@@ -1,7 +1,10 @@
 package de.telran.onlineshop.service;
 
 import de.telran.onlineshop.configure.MapperUtil;
+import de.telran.onlineshop.dto.CategoryDto;
 import de.telran.onlineshop.dto.FavoritesDto;
+import de.telran.onlineshop.dto.UserDto;
+import de.telran.onlineshop.entity.CategoriesEntity;
 import de.telran.onlineshop.entity.FavoritesEntity;
 import de.telran.onlineshop.entity.ProductsEntity;
 import de.telran.onlineshop.entity.UsersEntity;
@@ -13,6 +16,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 @RequiredArgsConstructor
@@ -34,9 +38,15 @@ public class FavoritesService {
         favoritesRepository.save(favorite2);
     }
 
-//    public List<FavoritesDto> getAllFavorites() {
-//        List<FavoritesEntity> favoritesEntities = favoritesRepository.findAll();
-//        List<FavoritesDto> favoritesDtoList = MapperUtil.convertList(favoritesEntities, mappers::convertToFavoritesDto);
-//        return favoritesDtoList;
-//    }
+    public List<FavoritesDto> getAllFavorites() {
+        List<FavoritesEntity> favoritesEntities = favoritesRepository.findAll();
+
+        return favoritesEntities.stream()
+
+                .map(entity -> new FavoritesDto(entity.getFavoriteId(), null,null))
+                .collect(Collectors.toList());
+     //  List<FavoritesEntity> favoritesEntities = favoritesRepository.findAll();
+       // List<FavoritesDto> favoritesDtoList = MapperUtil.convertList(favoritesEntities, mappers::convertToFavoritesDto);
+      //  return favoritesDtoList;
+    }
 }

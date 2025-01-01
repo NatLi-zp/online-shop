@@ -23,10 +23,12 @@ public class FavoritesController {
         this.favoritesService = favoritesService;
     }
 
-//    @GetMapping  //select
-//    public List<FavoritesDto> getAllFavorites() {
-//        return favoritesService.getAllFavorites();
-//    }
+    @GetMapping  //select
+    public List<FavoritesDto> getAllFavorites() {
+        return favoritesService.getAllFavorites();
+    }
+
+
 
 
 }

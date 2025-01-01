@@ -19,11 +19,14 @@ public class Mappers {
     private final ModelMapper modelMapper;
 
     public UserDto convertToUserDto(UsersEntity usersEntity) {
+        try {
         modelMapper.typeMap(UsersEntity.class, UserDto.class)
                 .addMappings(mapper -> mapper.skip(UserDto::setEmail)); // исключаем этот метод из работы
-        UserDto userDto = modelMapper.map(usersEntity, UserDto.class); //автомат
-        if (userDto.getPasswordHash()!=null)
-            userDto.setPasswordHash("***"); // замещаем данных
+
+
+            UserDto userDto = modelMapper.map(usersEntity, UserDto.class); //автомат
+            if (userDto.getPasswordHash() != null)
+                userDto.setPasswordHash("***"); // замещаем данных
 
         // преобразовываем
         if (usersEntity.getFavorites()!=null) {
@@ -33,8 +36,15 @@ public class Mappers {
 
         CartDto cartDto = convertToCartDto(usersEntity.getCart()); // второй связанный объект
         userDto.setCart(cartDto);
+
         return userDto;
+        }
+        catch (Exception exception){
+            String s = exception.getMessage();
+        };
+        return null;
     }
+
 
     public CartDto convertToCartDto(CartEntity cartEntity) {
         CartDto cartDto = null;
@@ -53,6 +63,7 @@ public class Mappers {
         UsersEntity usersEntity = modelMapper.map(userDto, UsersEntity.class); //автомат
         return usersEntity;
     }
+
 
     //Homework 111224
     public ProductDto convertToProductDto(ProductsEntity productsEntity) {

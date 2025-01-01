@@ -5,6 +5,8 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import de.telran.onlineshop.entity.FavoritesEntity;
 import de.telran.onlineshop.entity.enums.Role;
+import de.telran.onlineshop.entity.CartEntity;
+
 
 import java.util.HashSet;
 import java.util.Objects;

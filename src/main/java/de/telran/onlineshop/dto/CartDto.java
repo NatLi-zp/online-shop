@@ -1,10 +1,14 @@
 package de.telran.onlineshop.dto;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import java.util.Objects;
 
 //Cart - корзина
 public class CartDto {
     private Long cartID;
+
+    @JsonBackReference  // мое 010125
     private UserDto user;
 
     public CartDto() {
