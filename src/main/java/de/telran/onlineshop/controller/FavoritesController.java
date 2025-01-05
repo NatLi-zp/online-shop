@@ -1,7 +1,9 @@
 package de.telran.onlineshop.controller;
 
 import de.telran.onlineshop.dto.FavoritesDto;
+import de.telran.onlineshop.dto.ProductDto;
 import de.telran.onlineshop.service.FavoritesService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -26,6 +28,12 @@ public class FavoritesController {
     @GetMapping  //select
     public List<FavoritesDto> getAllFavorites() {
         return favoritesService.getAllFavorites();
+    }
+
+    @GetMapping(value = "/find/{id}")
+    public ResponseEntity<FavoritesDto> getFavoriteById(@PathVariable Long id) { ///categories/find/3
+        FavoritesDto favoritesDto = favoritesService.getFavoriteById(id);
+        return ResponseEntity.status(200).body(favoritesDto);
     }
 
 

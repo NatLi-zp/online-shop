@@ -3,6 +3,7 @@ package de.telran.onlineshop.service;
 import de.telran.onlineshop.configure.MapperUtil;
 import de.telran.onlineshop.dto.CategoryDto;
 import de.telran.onlineshop.dto.FavoritesDto;
+import de.telran.onlineshop.dto.ProductDto;
 import de.telran.onlineshop.dto.UserDto;
 import de.telran.onlineshop.entity.CategoriesEntity;
 import de.telran.onlineshop.entity.FavoritesEntity;
@@ -48,5 +49,12 @@ public class FavoritesService {
      //  List<FavoritesEntity> favoritesEntities = favoritesRepository.findAll();
        // List<FavoritesDto> favoritesDtoList = MapperUtil.convertList(favoritesEntities, mappers::convertToFavoritesDto);
       //  return favoritesDtoList;
+    }
+
+    public FavoritesDto getFavoriteById(Long id) {///favorites/find/3
+        FavoritesEntity favoritesEntity = favoritesRepository.findById(id).orElse(new FavoritesEntity());
+        FavoritesDto favoritesDto = mappers.convertToFavoritesDto(favoritesEntity);
+        return favoritesDto;
+
     }
 }
