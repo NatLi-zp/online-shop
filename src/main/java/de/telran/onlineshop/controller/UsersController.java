@@ -44,11 +44,13 @@ public class UsersController {
         return ResponseEntity.status(200).body(user);
     }
 
-    @PostMapping //Jackson
+//    @PostMapping //Jackson
 //    public ResponseEntity<Boolean> createUsers(@RequestBody UserDto newUser) { //insert
 //        boolean user = usersService.createUsers(newUser);
 //        return ResponseEntity.status(HttpStatus.CREATED).body(user);
 //    }
+
+    @PostMapping
     public ResponseEntity<UserDto> createUsers(@RequestBody UserDto newUser) { //insert
         UserDto user = usersService.insertUsers(newUser);
         return ResponseEntity.status(HttpStatus.CREATED).body(user);

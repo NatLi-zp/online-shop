@@ -27,7 +27,9 @@ class UsersRepositoryTest {
         //CartEntity cart1 = new CartEntity();
         //cart1 = cartRepository.save(cart1);
         //usersEntityNewTest = new UsersEntity(null, NAME_TEST, "petrov@gmail.com", "+49123123123", "111", Role.CLIENT, cart1, null, null, null);
-        usersEntityNewTest = new UsersEntity(null, NAME_TEST, "petrov@gmail.com", "+49123123123", "111", Role.CLIENT, null, null, null, null);
+
+      //  usersEntityNewTest = new UsersEntity(null, NAME_TEST, "petrov@gmail.com", "+49123123123", "111", Role.CLIENT, null, null, null, null);
+        usersEntityNewTest = new UsersEntity(null, NAME_TEST, "petrov@gmail.com", "+49123123123", "111",  null, null, null, null);
 
         System.out.println("Выполняется setStart(единоразово, перед запуском всех тестов)!");
     }

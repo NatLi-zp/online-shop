@@ -4,22 +4,22 @@ package de.telran.onlineshop.dto;
 import java.util.Objects;
 
 public class CategoryDto {
-    private long categoryID;
+    private Long categoryID;
     private String name;
 
     public CategoryDto() {
     }
 
-    public CategoryDto(long categoryID, String name) {
+    public CategoryDto(Long categoryID, String name) {
         this.categoryID = categoryID;
         this.name = name;
     }
 
-    public long getCategoryID() {
+    public Long getCategoryID() {
         return categoryID;
     }
 
-    public void setCategoryID(long categoryID) {
+    public void setCategoryID(Long categoryID) {
         this.categoryID = categoryID;
     }
 

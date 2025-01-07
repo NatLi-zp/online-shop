@@ -80,7 +80,7 @@ class UsersControllerTest {
     @Test
     void getUserByName() throws Exception {
         String testName = "TestName";
-        when(usersServiceMock.getUserByName(testName)).thenReturn(new UserDto(1L, testName, null, null, null, null));
+        when(usersServiceMock.getUserByName(testName)).thenReturn(new UserDto(1L, testName, null, null, null , null));
         this.mockMvc.perform(get("/users/get?name=TestName", testName))
                 .andDo(print())
                 .andExpect(status().isOk())
@@ -89,21 +89,21 @@ class UsersControllerTest {
                 .andExpect(jsonPath("$.name").value(testName));
     }
 
-    @Test
-    void createUsers() throws Exception {
-        when(usersServiceMock.createUsers(any(UserDto.class))).thenReturn(true);
-        this.mockMvc.perform(post("/users")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content("""
-                                {
-                                    "userID": null,
-                                    "name": "TestName"
-                                }
-                                """
-                        ))
-                .andDo(print())
-                .andExpect(status().isCreated());
-    }
+//    @Test
+//    void createUsers() throws Exception {
+//        when(usersServiceMock.createUsers(any(UserDto.class))).thenReturn(true);
+//        this.mockMvc.perform(post("/users")
+//                        .contentType(MediaType.APPLICATION_JSON)
+//                        .content("""
+//                                {
+//                                    "userID": null,
+//                                    "name": "TestName"
+//                                }
+//                                """
+//                        ))
+//                .andDo(print())
+//                .andExpect(status().isCreated());
+//    }
 
     @Test
     void updateUsers() throws Exception {

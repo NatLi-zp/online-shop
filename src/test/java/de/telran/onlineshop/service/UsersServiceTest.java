@@ -50,8 +50,8 @@ class UsersServiceTest {
                 Role.CLIENT,
                 new CartEntity(),
                 new HashSet<FavoritesEntity>(),
-                new HashSet<OrdersEntity>(),
-                new HashSet<AddressEntity>()
+                new HashSet<OrdersEntity>()
+                //   new HashSet<AddressEntity>()
         );
 
         userDToTest1 = new UserDto(
@@ -76,8 +76,8 @@ class UsersServiceTest {
                 Role.CLIENT,
                 new CartEntity(),
                 new HashSet<FavoritesEntity>(),
-                new HashSet<OrdersEntity>(),
-                new HashSet<AddressEntity>()
+                new HashSet<OrdersEntity>()
+             //   new HashSet<AddressEntity>()
         );
 
         UserDto userDToTest2 = new UserDto(
@@ -163,8 +163,8 @@ class UsersServiceTest {
                 Role.CLIENT,
                 new CartEntity(),
                 new HashSet<FavoritesEntity>(),
-                new HashSet<OrdersEntity>(),
-                new HashSet<AddressEntity>()
+                new HashSet<OrdersEntity>()
+           //     new HashSet<AddressEntity>()
         );
 
         UserDto userDtoTestInput = new UserDto(

@@ -22,20 +22,26 @@ public class UserDto {
     private String email;
     private String phoneNumber;
     private String passwordHash;
-
+    private Role role;
     private Set<FavoritesDto> favorites = new HashSet<>();
 
     private CartDto cart;
 
-    public UserDto(Long userID, String name, String email, String phoneNumber, String passwordHash) {
+    public UserDto() {
+    }
+
+    public UserDto(Long userID, String name, String email, String phoneNumber, String passwordHash, Role role) {
         this.userID = userID;
         this.name = name;
         this.email = email;
         this.phoneNumber = phoneNumber;
         this.passwordHash = passwordHash;
+        this.role = role;
     }
 
-    public UserDto() {
+    public UserDto(Long userID, String name) {
+        this.userID = userID;
+        this.name = name;
     }
 
     public CartDto getCart() {
@@ -92,6 +98,10 @@ public class UserDto {
 
     public void setPasswordHash(String passwordHash) {
         this.passwordHash = passwordHash;
+    }
+
+    public Role getRole() {
+        return role;
     }
 
     @Override

@@ -98,15 +98,14 @@ public class UsersService {
     }
 
     //POST вставить
-//    public boolean createUsers(UserDto newUser) {//insert
-//
-//        UsersEntity createUserEntity = new UsersEntity(null, newUser.getName(), newUser.getEmail(),
-//                newUser.getPhoneNumber(), newUser.getPasswordHash(), newUser.getRole(), null, null, null, null);
-//
-//        UsersEntity returnUser = usersRepository.save(createUserEntity);
-//        return createUserEntity.getUserId() != null;
-//        //return userList.add(newUser);
-//    }
+    public boolean createUsers(UserDto newUser) {//insert
+
+        UsersEntity createUserEntity = new UsersEntity(null, newUser.getName(), newUser.getEmail(), newUser.getPhoneNumber(), newUser.getPasswordHash(), newUser.getRole(), null, null, null);
+
+        UsersEntity returnUser = usersRepository.save(createUserEntity);
+        return createUserEntity.getUserId() != null;
+        //return userList.add(newUser);
+    }
 
 
     public UserDto insertUsers(UserDto usersDto) {//insert
@@ -123,8 +122,8 @@ public class UsersService {
         UsersEntity returnUserEntity = usersRepository.save(usersEntity); // сохранили в БД
         return mappers.convertToUserDto(returnUserEntity); //из Entity  в Dto
 
-//        UsersEntity createUserEntity = new UsersEntity(updUser.getUserID(), updUser.getName(), updUser.getEmail(),
-//                updUser.getPhoneNumbmer(), updUser.getPasswordHash(), updUser.getRole(), null, null, null, null);
+//        UsersEntity createUserEntity = new UsersEntity(user.getUserID(), user.getName(), user.getEmail(),
+//                user.getPhoneNumber(), user.getPasswordHash(), user.getRole(), null, null, null);
 //        UsersEntity returnUser = usersRepository.save(createUserEntity);
 //
 //        // трансформируем данные из Entity в Dto и возвращаем пользователю
@@ -145,15 +144,15 @@ public class UsersService {
 
     //DELETE удалить
     public void deleteUsersById(Long id) {
-        //   usersRepository.deleteById(id); // 1й вариант реализации метода delete, менее информативно
-
-        // 2й вариант реализации метода delete c предварит. поиском
-        UsersEntity usersEntity = usersRepository.findById(id).orElse(null);
-        if (usersEntity != null) {
-            usersRepository.delete(usersEntity);
-        } else {
-            throw new NullPointerException("Not Found UsersEntity");
-        }
+        usersRepository.deleteById(id); // 1й вариант реализации метода delete, менее информативно
+//
+//        // 2й вариант реализации метода delete c предварит. поиском
+//        UsersEntity usersEntity = usersRepository.findById(id).orElse(null);
+//        if (usersEntity != null) {
+//            usersRepository.delete(usersEntity);
+//        } else {
+//            throw new NullPointerException("Not Found UsersEntity");
+//        }
 
     }
 
