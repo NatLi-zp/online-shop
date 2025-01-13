@@ -28,13 +28,13 @@ public class OrdersService {
         Date currentDate = new Date();
         Timestamp timestamp = new Timestamp(currentDate.getTime());
 
-        UsersEntity user1 = usersRepository.findById(1L).orElse(null);
-        OrdersEntity order1 = new OrdersEntity(null, timestamp, "Hamburg", "+491234567", "до квартиры", Status.CREATED, timestamp, user1, null);
-        ordersRepository.save(order1);
-
-        UsersEntity user2 = usersRepository.findById(2L).orElse(null);
-        OrdersEntity order2 = new OrdersEntity(null, timestamp, "Berlin", "+491234567444", "до подъезда", Status.PAID, timestamp, user2, null);
-        ordersRepository.save(order2);
+//        UsersEntity user1 = usersRepository.findById(1L).orElse(null);
+//        OrdersEntity order1 = new OrdersEntity(null, timestamp, "Hamburg", "+491234567", "до квартиры", Status.CREATED, timestamp, user1, null);
+//        ordersRepository.save(order1);
+//
+//        UsersEntity user2 = usersRepository.findById(2L).orElse(null);
+//        OrdersEntity order2 = new OrdersEntity(null, timestamp, "Berlin", "+491234567444", "до подъезда", Status.PAID, timestamp, user2, null);
+//        ordersRepository.save(order2);
 
         System.out.println("Выполняем логику при создании объекта " + this.getClass().getName());
     }

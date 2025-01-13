@@ -26,9 +26,10 @@ public class CartEntity {
     @JoinColumn(name = "UserID", referencedColumnName = "userId")
     private UsersEntity user;
 
-    //my
-    @OneToMany(mappedBy = "cart")
-    private Set<CartItemsEntity> cartItems = new HashSet<>();
+
+//    //my
+//    @OneToMany(mappedBy = "cart")
+//    private Set<CartItemsEntity> cartItems = new HashSet<>();
 }
 
 

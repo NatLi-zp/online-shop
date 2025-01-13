@@ -2,6 +2,7 @@ package de.telran.onlineshop.controller;
 
 import de.telran.onlineshop.dto.ProductDto;
 import de.telran.onlineshop.service.ProductsService;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -57,14 +58,14 @@ public class ProductsController {
 //        return productsService.createProducts(newProduct);
 //    }
     @PostMapping //Jackson
-    public ResponseEntity<Boolean> createProducts(@RequestBody ProductDto newProduct) { //insert
+    public ResponseEntity<Boolean> createProducts(@RequestBody @Valid ProductDto newProduct) { //insert
         boolean product = productsService.createProducts(newProduct);
         return ResponseEntity.status(HttpStatus.CREATED).body(product);
     }
 
     //PUT изменить
     @PutMapping //Jackson
-    public ResponseEntity<ProductDto> updateProducts(@RequestBody ProductDto updProduct) { // update
+    public ResponseEntity<ProductDto> updateProducts(@RequestBody @Valid ProductDto updProduct) { // update
         ProductDto product = productsService.updateProducts(updProduct);
         return ResponseEntity.status(HttpStatus.ACCEPTED).body(product);
     }

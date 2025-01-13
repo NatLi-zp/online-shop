@@ -3,6 +3,10 @@ package de.telran.onlineshop.dto;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import de.telran.onlineshop.entity.CategoriesEntity;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.PositiveOrZero;
+import jakarta.validation.constraints.Size;
 
 import java.sql.Timestamp;
 import java.util.HashSet;
@@ -12,21 +16,41 @@ import java.util.Set;
 //2) Products - товары
 @JsonInclude(JsonInclude.Include.NON_NULL) //если равно null - скрыть в выводе.Include.NON_NULL) /
 public class ProductDto {
+
+    @PositiveOrZero(message = "Invalid productID: должно быть больше или равно 0")
     private Long productID;
+
+    @NotNull
+    @NotEmpty(message = "Invalid name: Empty name")
+    @Size(min=2, max=30, message = "Invalid name: Must be of 2 - 30 characters")
     private String name;
+
+    @NotNull
+    @NotEmpty(message = "Invalid name: Empty name")
+    @Size(min=2, max=30, message = "Invalid name: Must be of 2 - 500 characters")
     private String description;
+
+    @NotNull
     private Double price; //BigDecimal
     //private Category category;
     //private Long categoryID;
+
+    @NotNull
     private String imageURL;
+
+    @NotNull
     private Double discountPrice; //BigDecimal
+
+    @NotNull
     private Timestamp createdAt;
+
+    @NotNull
     private Timestamp updatedAt;
 
     private CategoryDto category; //мое 111224
 
-    @JsonManagedReference  // мое 111224
-    private Set<FavoritesDto> favorites = new HashSet<>();
+//    @JsonManagedReference  // мое 111224
+//    private Set<FavoritesDto> favorites = new HashSet<>();
 
      public ProductDto() {
     }
@@ -39,13 +63,13 @@ public class ProductDto {
         this.category = category;
     }
 
-    public Set<FavoritesDto> getFavorites() {
-        return favorites;
-    }
-
-    public void setFavorites(Set<FavoritesDto> favorites) {
-        this.favorites = favorites;
-    }
+//    public Set<FavoritesDto> getFavorites() {
+//        return favorites;
+//    }
+//
+//    public void setFavorites(Set<FavoritesDto> favorites) {
+//        this.favorites = favorites;
+//    }
 
     // public ProductDto(Long productID, String name, String description, Double price, Long categoryID, String imageURL, Double discountPrice, Timestamp createdAt, Timestamp updatedAt) {
    public ProductDto(Long productID, String name, String description, Double price, String imageURL, Double discountPrice, Timestamp createdAt, Timestamp updatedAt) {

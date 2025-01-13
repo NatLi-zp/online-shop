@@ -3,11 +3,13 @@ package de.telran.onlineshop.controller;
 import de.telran.onlineshop.dto.CategoryDto;
 import de.telran.onlineshop.dto.UserDto;
 import de.telran.onlineshop.service.UsersService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.FileNotFoundException;
 import java.util.List;
 
 @RestController
@@ -29,7 +31,7 @@ public class UsersController {
 //        }
 
     @GetMapping(value = "/find/{id}")
-    public ResponseEntity<UserDto> getUserById(@PathVariable Long id) {
+    public ResponseEntity<UserDto> getUserById(@PathVariable Long id) throws FileNotFoundException {
         UserDto user = usersService.getUserById(id);
         return ResponseEntity.status(200).body(user); // поставила,чтоб тест проходил
         // return ResponseEntity.status(222).body(user);
@@ -39,7 +41,7 @@ public class UsersController {
     }
 
     @GetMapping(value = "/get")
-    public ResponseEntity<UserDto> getUserByName(@RequestParam String name) { //user/get?name=Other,k=2
+    public ResponseEntity<UserDto> getUserByName(@RequestParam @Valid String name) { //user/get?name=Other,k=2
         UserDto user = usersService.getUserByName(name);
         return ResponseEntity.status(200).body(user);
     }
@@ -51,13 +53,13 @@ public class UsersController {
 //    }
 
     @PostMapping
-    public ResponseEntity<UserDto> createUsers(@RequestBody UserDto newUser) { //insert
+    public ResponseEntity<UserDto> createUsers(@RequestBody @Valid UserDto newUser) { //insert
         UserDto user = usersService.insertUsers(newUser);
         return ResponseEntity.status(HttpStatus.CREATED).body(user);
     }
 
     @PutMapping
-    public ResponseEntity<UserDto> updateUsers(@RequestBody UserDto user) {
+    public ResponseEntity<UserDto> updateUsers(@RequestBody @Valid UserDto user) {
         UserDto userResponse = usersService.updateUsers(user);
         //  return ResponseEntity.status(HttpStatus.CREATED).body(userResponse);
         return ResponseEntity.status(HttpStatus.ACCEPTED).body(userResponse); // поставила,чтоб тест проходил

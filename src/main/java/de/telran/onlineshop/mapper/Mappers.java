@@ -33,9 +33,9 @@ public class Mappers {
             Set<FavoritesDto> favoritesDtoSet = MapperUtil.convertSet(usersEntity.getFavorites(), this::convertToFavoritesDto);
             userDto.setFavorites(favoritesDtoSet);
         }
-
-        CartDto cartDto = convertToCartDto(usersEntity.getCart()); // второй связанный объект
-        userDto.setCart(cartDto);
+//
+//        CartDto cartDto = convertToCartDto(usersEntity.getCart()); // второй связанный объект
+//        userDto.setCart(cartDto);
 
         return userDto;
 
@@ -46,6 +46,7 @@ public class Mappers {
         CartDto cartDto = null;
         if (cartEntity != null)
             cartDto = modelMapper.map(cartEntity, CartDto.class); //автомат
+        //artDto.();
         return cartDto;
     }
 
@@ -72,7 +73,7 @@ public class Mappers {
         // преобразовываем
         if (productsEntity.getFavorites() != null) {
             Set<FavoritesDto> favoritesDtoSet = MapperUtil.convertSet(productsEntity.getFavorites(), this::convertToFavoritesDto);
-            productDto.setFavorites(favoritesDtoSet);
+            //productDto.setFavorites(favoritesDtoSet);
         }
 
         CategoryDto categoryDto = convertToCategoryDto(productsEntity.getCategory()); // второй связанный объект

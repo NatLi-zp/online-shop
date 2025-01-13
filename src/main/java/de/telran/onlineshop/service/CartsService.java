@@ -22,13 +22,13 @@ public class CartsService {
     //@PostConstruct
     void init() {
 
-        UsersEntity user1 = usersRepository.findById(1L).orElse(null);
-        CartEntity cart1 = new CartEntity(null, user1,null);
-        cartRepository.save(cart1);
-
-        UsersEntity user2 = usersRepository.findById(2L).orElse(null);
-        CartEntity cart2 = new CartEntity(null, user2,null);
-        cartRepository.save(cart2);
+//        UsersEntity user1 = usersRepository.findById(1L).orElse(null);
+//        CartEntity cart1 = new CartEntity(null, user1,null);
+//        cartRepository.save(cart1);
+//
+//        UsersEntity user2 = usersRepository.findById(2L).orElse(null);
+//        CartEntity cart2 = new CartEntity(null, user2,null);
+//        cartRepository.save(cart2);
 
         System.out.println("Выполняем логику при создании объекта " + this.getClass().getName());
     }

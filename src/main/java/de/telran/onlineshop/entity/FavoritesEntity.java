@@ -13,19 +13,17 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 public class FavoritesEntity {
-
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "FavoriteID")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long favoriteId;
 
     @ManyToOne
-    @JoinColumn(name = "UserID", referencedColumnName = "userId")
+    @JoinColumn(name = "UserID")
     private UsersEntity user;
 
-
     @ManyToOne
-    @JoinColumn(name = "ProductID", referencedColumnName = "productId")
+    @JoinColumn(name = "ProductID")
     private ProductsEntity product;
 
 }

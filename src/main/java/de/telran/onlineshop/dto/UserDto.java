@@ -3,9 +3,12 @@ package de.telran.onlineshop.dto;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import de.telran.onlineshop.entity.FavoritesEntity;
 import de.telran.onlineshop.entity.enums.Role;
 import de.telran.onlineshop.entity.CartEntity;
+import jakarta.validation.constraints.*;
+import org.hibernate.annotations.BatchSize;
 
 
 import java.util.HashSet;
@@ -14,21 +17,32 @@ import java.util.Set;
 
 //1) Users - пользователи
 
-@JsonInclude(JsonInclude.Include.NON_NULL) //если равно null - скрыть в выводе
+@JsonInclude(JsonInclude.Include.NON_NULL)//если равно null - скрыть в выводе
 public class UserDto {
     private Long userID;
+
+    @Size(min = 2, max = 30, message = "Invalid name: Must be of 2 - 30 characters")
     private String name;
+
     @JsonInclude(JsonInclude.Include.NON_NULL) //если равно null - скрыть в выводе
+    @Email(message = "Invalid email")
     private String email;
-    private String phoneNumber;
+
+    @NotBlank(message = "Invalid Phone number: Empty number")
+    @Pattern(regexp = "^\\d{12}$", message = "Invalid phone number")
+    private String phoneNumber; //""
+
+    @Size(min = 2, max = 30, message = "Invalid passwordHash: Must be of 2 - 30 characters")
     private String passwordHash;
+
+   // @NotNull
     private Role role;
+
+    @JsonProperty(required = false)
     private Set<FavoritesDto> favorites = new HashSet<>();
-
-    private CartDto cart;
-
-    public UserDto() {
-    }
+//
+//    @JsonProperty(required = false)
+//    private CartDto cart;
 
     public UserDto(Long userID, String name, String email, String phoneNumber, String passwordHash, Role role) {
         this.userID = userID;
@@ -39,19 +53,17 @@ public class UserDto {
         this.role = role;
     }
 
-    public UserDto(Long userID, String name) {
-        this.userID = userID;
-        this.name = name;
+    public UserDto() {
     }
 
-    public CartDto getCart() {
-        return cart;
-    }
-
-    public void setCart(CartDto cart) {
-        this.cart = cart;
-    }
-
+//    public CartDto getCart() {
+//        return cart;
+//    }
+//
+//    public void setCart(CartDto cart) {
+//        this.cart = cart;
+//    }
+//
     public Set<FavoritesDto> getFavorites() {
         return favorites;
     }
@@ -98,10 +110,6 @@ public class UserDto {
 
     public void setPasswordHash(String passwordHash) {
         this.passwordHash = passwordHash;
-    }
-
-    public Role getRole() {
-        return role;
     }
 
     @Override

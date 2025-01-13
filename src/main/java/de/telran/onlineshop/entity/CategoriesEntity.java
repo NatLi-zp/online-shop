@@ -2,6 +2,7 @@ package de.telran.onlineshop.entity;
 
 //8) Categories - категории товаров.
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 
 import java.util.HashSet;
@@ -23,6 +24,7 @@ public class CategoriesEntity {
     private Long categoryId;
 
     @Column(name = "Name")
+    @NotBlank // может быть и на уровне Entity, а не только на Dto
     private String name;
 
     @OneToMany(mappedBy = "category") //, cascade = CascadeType.ALL)

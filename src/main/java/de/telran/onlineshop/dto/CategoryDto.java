@@ -1,25 +1,35 @@
 package de.telran.onlineshop.dto;
 
 //Category - категории товаров
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.PositiveOrZero;
+import jakarta.validation.constraints.Size;
+
 import java.util.Objects;
 
 public class CategoryDto {
-    private Long categoryID;
+    @PositiveOrZero(message = "Invalid categoryID: должно быть больше или равно 0")
+    private long categoryID;
+
+    @NotNull
+    @NotEmpty(message = "Invalid name: Empty name")
+    @Size(min=2, max=30, message = "Invalid name: Must be of 2 - 30 characters")
     private String name;
 
     public CategoryDto() {
     }
 
-    public CategoryDto(Long categoryID, String name) {
+    public CategoryDto(long categoryID, String name) {
         this.categoryID = categoryID;
         this.name = name;
     }
 
-    public Long getCategoryID() {
+    public long getCategoryID() {
         return categoryID;
     }
 
-    public void setCategoryID(Long categoryID) {
+    public void setCategoryID(long categoryID) {
         this.categoryID = categoryID;
     }
 
@@ -35,13 +45,16 @@ public class CategoryDto {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
+
         CategoryDto category = (CategoryDto) o;
         return categoryID == category.categoryID && Objects.equals(name, category.name);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(categoryID, name);
+        int result = Long.hashCode(categoryID);
+        result = 31 * result + Objects.hashCode(name);
+        return result;
     }
 
     @Override

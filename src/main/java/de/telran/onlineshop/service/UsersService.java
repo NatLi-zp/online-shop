@@ -13,6 +13,7 @@ import jakarta.annotation.PreDestroy;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.io.FileNotFoundException;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -37,7 +38,7 @@ public class UsersService {
 
 //        CartEntity cart1 = new CartEntity();
 //        cart1 = cartRepository.save(cart1);
-//        UsersEntity user1 = new UsersEntity(null, "Петя Петров1111", "petrov@gmail.com", "+49123123123", "111", Role.CLIENT, cart1, null, null, null);
+//        UsersEntity user1 = new UsersEntity(null, "Петя Петров1111", "petrov@gmail.com", "+49123123123", "111", Role.CLIENT, cart1, null, null);
 //        usersRepository.save(user1);
 //
 //        CartEntity cart2 = new CartEntity();
@@ -65,12 +66,20 @@ public class UsersService {
 //                .collect(Collectors.toList());
     }
 
-    public UserDto getUserById(Long id) {
-
+    public UserDto getUserById(Long id) throws FileNotFoundException {
+        if(id<0) {
+            throw new FileNotFoundException(id+" - не найдено!");
+        }
         UsersEntity usersEntity = usersRepository.findById(id).orElse(new UsersEntity());
         UserDto userDto = mappers.convertToUserDto(usersEntity);
-
         return userDto;
+    }
+//    public UserDto getUserById(Long id) {
+//
+//        UsersEntity usersEntity = usersRepository.findById(id).orElse(new UsersEntity());
+//        UserDto userDto = mappers.convertToUserDto(usersEntity);
+//
+//        return userDto;
 
 //        return new UserDto(usersEntity.getUserId(), usersEntity.getName(), usersEntity.getEmail(),
 //                usersEntity.getPhoneNumber(), usersEntity.getPasswordHash(), usersEntity.getRole());
@@ -79,7 +88,7 @@ public class UsersService {
         //         .filter(user -> user.getUserID() == id)
 //                .findFirst()
 //                .orElse(null);
-    }
+   // }
 
     public UserDto getUserByName(String name) { //user/get?name=Other,k=2
         UsersEntity usersEntity = usersRepository.findByNameNative(name); // используем native
@@ -98,23 +107,24 @@ public class UsersService {
     }
 
     //POST вставить
-    public boolean createUsers(UserDto newUser) {//insert
-
-        UsersEntity createUserEntity = new UsersEntity(null, newUser.getName(), newUser.getEmail(), newUser.getPhoneNumber(), newUser.getPasswordHash(), newUser.getRole(), null, null, null);
-
-        UsersEntity returnUser = usersRepository.save(createUserEntity);
-        return createUserEntity.getUserId() != null;
-        //return userList.add(newUser);
-    }
+//    public boolean createUsers(UserDto newUser) {//insert
+//
+//        UsersEntity createUserEntity = new UsersEntity(null, newUser.getName(), newUser.getEmail(), newUser.getPhoneNumber(), newUser.getPasswordHash(), newUser.getRole(), null, null, null);
+//
+//        UsersEntity returnUser = usersRepository.save(createUserEntity);
+//        return createUserEntity.getUserId() != null;
+//        //return userList.add(newUser);
+//    }
 
 
     public UserDto insertUsers(UserDto usersDto) {//insert
 
         UsersEntity usersEntity = mappers.convertToUserEntity(usersDto);
-        usersEntity.setUserId(null);
-        UsersEntity savedUserEntity = usersRepository.save(usersEntity);
-        return mappers.convertToUserDto(savedUserEntity);
 
+        usersEntity.setUserId(null);
+        UsersEntity savedUsersEntity = usersRepository.save(usersEntity);
+
+        return mappers.convertToUserDto(savedUsersEntity);
     }
 
     public UserDto updateUsers(UserDto user) {
