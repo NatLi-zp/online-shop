@@ -41,7 +41,7 @@ public class CategoriesController {
     }
 
     @GetMapping(value = "/find/{id}")
-    public CategoryDto getCategoryById(@PathVariable Long id) { ///categories/find/3
+    public CategoryDto getCategoryById(@PathVariable Long id) throws FileNotFoundException{ ///categories/find/3
         return categoryService.getCategoryById(id);
     }
 
