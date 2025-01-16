@@ -3,6 +3,8 @@ package de.telran.onlineshop.controller;
 import de.telran.onlineshop.dto.CategoryDto;
 import de.telran.onlineshop.dto.UserDto;
 import de.telran.onlineshop.service.UsersService;
+import io.swagger.v3.oas.annotations.Hidden;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,8 +17,10 @@ import java.util.List;
 
 @RestController
 @RequestMapping(value = "/users")
+@Hidden
+@Tag(name = "Секретный контроллер User", description = "Позволяет работать с пользователями")
 @Slf4j
-public class UsersController {
+public class UsersController implements UsersControllerInterface{
 
     @Autowired
     private UsersService usersService;

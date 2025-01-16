@@ -2,7 +2,13 @@ package de.telran.onlineshop.controller;
 
 import de.telran.onlineshop.dto.CategoryDto;
 import de.telran.onlineshop.service.CategoriesService;
+import io.swagger.v3.oas.annotations.ExternalDocumentation;
+import io.swagger.v3.oas.annotations.Hidden;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.Min;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,8 +20,14 @@ import java.util.List;
 
 @RestController
 @RequestMapping(value = "/categories")
+//@Tag(name = "Categories", description = "Контроллер для работы с категориями товаров",
+//        externalDocs = @ExternalDocumentation(
+//                description = "Ссылка на общую документацию по категориям",
+//                url = "https://example.com/docs/categories-controller"
+//        )
+//)
 @Slf4j
-public class CategoriesController {
+public class CategoriesController implements CategoriesControllerInterface {
 
     //@Autowired - иньекция через value (не рекомендуемая из-за Reflection)
     private CategoriesService categoryService;
@@ -30,6 +42,10 @@ public class CategoriesController {
         this.categoryService = categoryService;
     }
 
+//    @Operation(
+//            summary = "Все категории",
+//            description = "Позволяет получить все категории товаров"
+//    )
     @GetMapping  //select
     public List<CategoryDto> getAllCategories() {
 
@@ -40,8 +56,15 @@ public class CategoriesController {
 
     }
 
+//    @Operation(
+//            summary = "Поиск по  id",
+//            description = "Позволяет найти информ. по идентиф.id категории товаров"
+//    )
     @GetMapping(value = "/find/{id}")
-    public CategoryDto getCategoryById(@PathVariable Long id) throws FileNotFoundException{ ///categories/find/3
+    public CategoryDto getCategoryById(
+            @Parameter(description = "Идентификатор категории", required = true, example = "1")
+            @Min(value = 0, message = "Id не может быть отрицат.")
+            @PathVariable Long id) throws FileNotFoundException{ ///categories/find/3
         return categoryService.getCategoryById(id);
     }
 
@@ -63,6 +86,7 @@ public class CategoriesController {
         return categoryService.updateCategories(updCategory);
     }
 
+    //@Hidden // скрытие данного endpoint из openApi
     @DeleteMapping(value = "/{id}")
     public void deleteCategories(@PathVariable Long id) { //delete
         categoryService.deleteCategories(id);

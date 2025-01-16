@@ -3,6 +3,7 @@ package de.telran.onlineshop.dto;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import de.telran.onlineshop.entity.CategoriesEntity;
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PositiveOrZero;
@@ -17,33 +18,41 @@ import java.util.Set;
 @JsonInclude(JsonInclude.Include.NON_NULL) //если равно null - скрыть в выводе.Include.NON_NULL) /
 public class ProductDto {
 
+    @Schema(description = "Уникальный идентификатор товара", example = "2", accessMode = Schema.AccessMode.READ_ONLY)
     @PositiveOrZero(message = "Invalid productID: должно быть больше или равно 0")
     private Long productID;
 
+    @Schema(description = "Наименование товара", example = "Новый товар")
     @NotNull
     @NotEmpty(message = "Invalid name: Empty name")
     @Size(min=2, max=30, message = "Invalid name: Must be of 2 - 30 characters")
     private String name;
 
+    @Schema(description = "Описание товара", example = "Супер модный товар из супермодного материала")
     @NotNull
     @NotEmpty(message = "Invalid name: Empty name")
     @Size(min=2, max=30, message = "Invalid name: Must be of 2 - 500 characters")
     private String description;
 
+    @Schema(description = "Цена товара", example = "10.55")
     @NotNull
     private Double price; //BigDecimal
     //private Category category;
     //private Long categoryID;
 
+    @Schema(description = "URL товара", example = "https://kinsta.com/wp-content/uploads/2021/02/url-domain.png")
     @NotNull
     private String imageURL;
 
+    @Schema(description = "Оптовая цена товара", example = "7.50")
     @NotNull
     private Double discountPrice; //BigDecimal
 
+    @Schema(description = "Дата создания товара", example = "2025-01-16")
     @NotNull
     private Timestamp createdAt;
 
+    @Schema(description = "Дата обновления товара", example = "2025-01-16")
     @NotNull
     private Timestamp updatedAt;
 

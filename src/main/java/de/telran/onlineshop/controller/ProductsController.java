@@ -2,7 +2,10 @@ package de.telran.onlineshop.controller;
 
 import de.telran.onlineshop.dto.ProductDto;
 import de.telran.onlineshop.service.ProductsService;
+import io.swagger.v3.oas.annotations.Parameter;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotNull;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -11,7 +14,7 @@ import java.util.*;
 
 @RestController
 @RequestMapping(value = "/products")
-public class ProductsController {
+public class ProductsController implements ProductsControllerInterface{
 
     //@Autowired - иньекция через value (не рекомендуемая из-за Reflection)
     private ProductsService productsService;
@@ -41,13 +44,19 @@ public class ProductsController {
     //        return productsService.getProductById(id);
     //    }
     @GetMapping(value = "/find/{id}")
-    public ResponseEntity<ProductDto> getProductById(@PathVariable Long id) { ///categories/find/3
+    public ResponseEntity<ProductDto> getProductById(
+            @Parameter(description = "Идентификатор товара", required = true, example = "1")
+            @Min(value = 0, message = "Id не может быть отрицат.")
+            @PathVariable Long id) { ///categories/find/3
         ProductDto product = productsService.getProductById(id);
         return ResponseEntity.status(200).body(product);
     }
 
     @GetMapping(value = "/get")
-    public ResponseEntity<ProductDto> getProductByName(@RequestParam String name) { //user/get?name=Other,k=2
+    public ResponseEntity<ProductDto> getProductByName(
+            @Parameter(description = "Наименование категории", required = true, example = "Телефон")
+            @NotNull(message = "name не может быть пустым")
+            @RequestParam String name) { //user/get?name=Other,k=2
         ProductDto product = productsService.getProductByName(name);
         return ResponseEntity.status(200).body(product);
     }
